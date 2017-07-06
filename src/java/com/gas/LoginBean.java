@@ -204,7 +204,7 @@ public class LoginBean  implements Serializable {
         sb_token.setToken(tk);
         
         if(rol.equals("ADM")){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("gasEmpresa/List.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("gasPrepago/List.xhtml");
         }else{
             FacesContext.getCurrentInstance().getExternalContext().redirect("gasPrepago/Consulta.xhtml");
         }        

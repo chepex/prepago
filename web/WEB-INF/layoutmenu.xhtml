@@ -19,6 +19,8 @@
                 <p:menuitem id="om_prepago_impresion" value="Impresion" icon=" fa  fa-print " actionListener="#{gasPrepagoController.redirect('jreporte2')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
                 <p:menuitem id="om_prepago_bloqueo" value="Desbloquear" icon=" fa  fa-ban " actionListener="#{gasPrepagoController.redirect('Bloqueo')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
                 <p:menuitem id="om_prepago_consulta" value="Consulta" icon=" fa fa-reorder  " actionListener="#{gasPrepagoController.redirect('Consulta')}" /> 
+                <p:menuitem id="om_prepago_consulta2" value="ConsultaPista" icon=" fa fa-reorder  " actionListener="#{gasPrepagoController.redirect('ConsultaPista')}" /> 
+                
                <p:menuitem id="om_prepago_historico" value="Historial" icon=" fa icon-calendar133  " actionListener="#{gasPrepagoDetalleController.redirect('List')}"  /> 
             </p:submenu>
         </po:menu>

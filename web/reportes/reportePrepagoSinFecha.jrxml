@@ -53,34 +53,6 @@ WHERE ROWNUM< $P{VCANT}]]>
 	</background>
 	<detail>
 		<band height="505" splitType="Prevent">
-			<staticText>
-				<reportElement x="28" y="275" width="58" height="15" uuid="91d6863c-e805-43cc-97b8-4950294c696f"/>
-				<textElement>
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<text><![CDATA[Vigencia:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="88" y="275" width="71" height="14" uuid="6f92cf2b-60e0-4435-8124-fd2d44c8c7fb"/>
-				<textElement>
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="159" y="275" width="18" height="15" uuid="888ce345-917f-4ff1-835d-e9ec5a7d7633"/>
-				<textElement>
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<text><![CDATA[al]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="177" y="275" width="73" height="14" uuid="f80ee66e-017d-4e09-886d-265766a6608c"/>
-				<textElement>
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="56" y="109" width="207" height="14" uuid="39158e7d-69a4-48cb-a870-f86011710598"/>
 				<textElement>

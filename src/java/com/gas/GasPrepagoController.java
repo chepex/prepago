@@ -788,6 +788,27 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
         return "Ok";
     }
     
+    public String generarReporteASinVigencia() throws SQLException, NamingException, PrinterException  {
+   
+        
+            if (selected!=null){
+                HashMap m = new HashMap();
+                String ruta = "/reportes/reportePrepagoSinFecha.jasper";
+                System.out.println("----->--->1");
+                System.out.println("----->--->1");
+                System.out.println("----->--->1");
+                BigDecimal codigo = new BigDecimal(selected.getGasPrepagoPK().getCodigoPrepago()); 
+                 BigDecimal cant = new BigDecimal("100000"); 
+                m.put("VCODIGO",codigo  ); 
+                m.put("VCANT",cant  ); 
+                reporte(ruta, m);
+            }
+            
+      
+            
+        return "Ok";
+    }    
+    
     
     public String addDetalle (){
     

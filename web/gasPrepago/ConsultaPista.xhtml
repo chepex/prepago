@@ -97,6 +97,10 @@
                         <p:commandButton id="viewButton2" icon="fa  fa-eye  White"  styleClass=" RedButton" rendered="#{gasPrepagoController.selected!=null}"  disabled="#{SSUSUARIO == null}"  actionListener="#{gasPrepagoErroresController.prepareCreatePista(gasPrepagoController.numeroPrepago) }"  update=":GasPrepagoErroresCreateForm" oncomplete="PF('GasPrepagoErroresCreateDialog').show()"   value="Reportar error"/>
                     </div>
                     
+                    
+                    <p:link  href="http://192.168.160.52:81/manuales/ManualPrepago%20V1.docx" value="Manual de Usuario">
+                        
+                    </p:link>
                 </h:form>
             </div>
             

@@ -145,6 +145,9 @@
                                 <p:commandButton id="btnprint"   icon="fa  fa-print White" 
                                                value="Reporte" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.generarReporte}" 
                                                         ajax="false" update="@form :growl" />                                   
+                                <p:commandButton id="btnprint3"   icon="fa  fa-print White" 
+                                               value="Reporte Sin Vigencia" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.generarReporteASinVigencia}" 
+                                                        ajax="false" update="@form :growl" />                                                                   
                                 <p:commandButton id="btnprint2"   icon="fa  fa-print White" 
                                                value="Reporte2" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.generarReporte2}" 
                                                         ajax="false" update="@form :growl" />                                                                 
