@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GascatUsuarioViewDlg" widgetVar="GascatUsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGascatUsuarioTitle}">
+            <h:form id="GascatUsuarioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gascatUsuarioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_gascatUsuarioPK_username}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.gascatUsuarioPK.username}" title="#{bundle.ViewGascatUsuarioTitle_gascatUsuarioPK_username}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_nombre}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.nombre}" title="#{bundle.ViewGascatUsuarioTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_apellido}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.apellido}" title="#{bundle.ViewGascatUsuarioTitle_apellido}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_fechaActivacion}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.fechaActivacion}" title="#{bundle.ViewGascatUsuarioTitle_fechaActivacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_fechaCancelacion}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.fechaCancelacion}" title="#{bundle.ViewGascatUsuarioTitle_fechaCancelacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_motivoCancelacion}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.motivoCancelacion}" title="#{bundle.ViewGascatUsuarioTitle_motivoCancelacion}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_estado}"/>
+                        <h:outputText  value="#{gascatUsuarioController.selected.estado eq 'A'? 'Activo':'Inactivo'  }"     title="#{bundle.ViewGascatUsuarioTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_codigoIslero}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.codigoIslero}" title="#{bundle.ViewGascatUsuarioTitle_codigoIslero}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_pwd}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.pwd}" title="#{bundle.ViewGascatUsuarioTitle_pwd}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_gasEstacion}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.gasEstacion.nombreEstacion}" title="#{bundle.ViewGascatUsuarioTitle_gasEstacion}"/>
+                        <h:outputText value="#{bundle.ViewGascatUsuarioLabel_codigoTiporol}"/>
+                        <h:outputText value="#{gascatUsuarioController.selected.codigoTiporol.descripcion}" title="#{bundle.ViewGascatUsuarioTitle_codigoTiporol}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GascatUsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

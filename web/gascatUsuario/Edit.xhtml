@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GascatUsuarioEditDlg" widgetVar="GascatUsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGascatUsuarioTitle}">
+            <h:form id="GascatUsuarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gascatUsuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_gascatUsuarioPK_username}" for="gascatUsuarioPK_username" />
+                        <p:inputText id="gascatUsuarioPK_username" value="#{gascatUsuarioController.selected.gascatUsuarioPK.username}" title="#{bundle.EditGascatUsuarioTitle_gascatUsuarioPK_username}" required="true" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_gascatUsuarioPK_username}"/>
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{gascatUsuarioController.selected.nombre}" title="#{bundle.EditGascatUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_apellido}" for="apellido" />
+                        <p:inputText id="apellido" value="#{gascatUsuarioController.selected.apellido}" title="#{bundle.EditGascatUsuarioTitle_apellido}" required="true" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_apellido}"/>
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_fechaActivacion}" for="fechaActivacion" />
+                        <p:calendar id="fechaActivacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{gascatUsuarioController.selected.fechaActivacion}" title="#{bundle.EditGascatUsuarioTitle_fechaActivacion}" required="true" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_fechaActivacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_fechaCancelacion}" for="fechaCancelacion" />
+                        <p:calendar id="fechaCancelacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{gascatUsuarioController.selected.fechaCancelacion}" title="#{bundle.EditGascatUsuarioTitle_fechaCancelacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_motivoCancelacion}" for="motivoCancelacion" />
+                        <p:inputText id="motivoCancelacion" value="#{gascatUsuarioController.selected.motivoCancelacion}" title="#{bundle.EditGascatUsuarioTitle_motivoCancelacion}" />
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_estado}" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{gascatUsuarioController.selected.estado}">
+                             <f:selectItem itemLabel="Activo" itemValue="A" />
+                             <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                        </p:selectOneMenu>
+                         
+                        
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_codigoIslero}" for="codigoIslero" />
+                        <p:inputText id="codigoIslero" value="#{gascatUsuarioController.selected.codigoIslero}" title="#{bundle.EditGascatUsuarioTitle_codigoIslero}" />
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_pwd}" for="pwd" />
+                        <p:inputText id="pwd" value="#{gascatUsuarioController.selected.pwd}" title="#{bundle.EditGascatUsuarioTitle_pwd}" />
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_gasEstacion}" for="gasEstacion" />
+                        <p:selectOneMenu id="gasEstacion" value="#{gascatUsuarioController.selected.gasEstacion}" required="true" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_gasEstacion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{gasEstacionController.itemsAvailableSelectOne}"
+                                           var="gasEstacionItem"
+                                           itemLabel="#{gasEstacionItem.nombreEstacion}"
+                                           itemValue="#{gasEstacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditGascatUsuarioLabel_codigoTiporol}" for="codigoTiporol" />
+                        <p:selectOneMenu id="codigoTiporol" value="#{gascatUsuarioController.selected.codigoTiporol}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{gascatTipoRolController.itemsAvailableSelectOne}"
+                                           var="codigoTiporolItem"
+                                           itemLabel="#{codigoTiporolItem.descripcion}"
+                                           itemValue="#{codigoTiporolItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gascatUsuarioController.update}" value="#{bundle.Save}" update="display,:GascatUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GascatUsuarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GascatUsuarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

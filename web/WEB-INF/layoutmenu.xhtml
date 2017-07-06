@@ -1,0 +1,27 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:po="http://primefaces.org/olympos">
+
+    <h:form id="menuform">
+        <po:menu>
+            <p:submenu id="om_dashboards" label="Catalogos" expanded="false"  rendered="#{loginBean.rol eq 'ADM'}" >
+                <p:menuitem id="om_empresa" value="Empresa" icon=" fa fa-bank " actionListener="#{gasEmpresaController.redirect('List')}"     />
+                <p:menuitem id="om_estacion" value="Estacion" icon="fa  fa-building-o" actionListener="#{gasEstacionController.redirect('List')}"    />
+                <p:menuitem id="om_usuario" value="Usuario" icon="fa   icon-male157 " actionListener="#{gascatUsuarioController.redirect('List')}"    />
+                <p:menuitem id="om_cliente" value="Cliente" icon="fa   fa-user " actionListener="#{gasClienteController.redirect('List')}"    />
+            </p:submenu>
+            <p:submenu id="om_menuoptcolor" label="Prepagos" expanded="true" >
+                <p:menuitem id="om_prepago_creacion" value="Creacion" icon=" fa fa-plus " actionListener="#{gasPrepagoController.redirect('List')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
+                <p:menuitem id="om_prepago_impresion" value="Impresion" icon=" fa  fa-print " actionListener="#{gasPrepagoController.redirect('jreporte2')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
+                <p:menuitem id="om_prepago_bloqueo" value="Desbloquear" icon=" fa  fa-ban " actionListener="#{gasPrepagoController.redirect('Bloqueo')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
+                <p:menuitem id="om_prepago_consulta" value="Consulta" icon=" fa fa-reorder  " actionListener="#{gasPrepagoController.redirect('Consulta')}" /> 
+               <p:menuitem id="om_prepago_historico" value="Historial" icon=" fa icon-calendar133  " actionListener="#{gasPrepagoDetalleController.redirect('List')}"  /> 
+            </p:submenu>
+        </po:menu>
+    </h:form>
+
+</ui:composition>

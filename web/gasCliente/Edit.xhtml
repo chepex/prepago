@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasClienteEditDlg" widgetVar="GasClienteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGasClienteTitle}">
+            <h:form id="GasClienteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasClienteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_gasClientePK_codigoEmpresa}" for="gasClientePK_codigoEmpresa" />
+                        <p:inputText id="gasClientePK_codigoEmpresa" value="#{gasClienteController.selected.gasClientePK.codigoEmpresa}" title="#{bundle.EditGasClienteTitle_gasClientePK_codigoEmpresa}" required="true" requiredMessage="#{bundle.EditGasClienteRequiredMessage_gasClientePK_codigoEmpresa}"/>
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_gasClientePK_codigoEstacion}" for="gasClientePK_codigoEstacion" />
+                        <p:inputText id="gasClientePK_codigoEstacion" value="#{gasClienteController.selected.gasClientePK.codigoEstacion}" title="#{bundle.EditGasClienteTitle_gasClientePK_codigoEstacion}" required="true" requiredMessage="#{bundle.EditGasClienteRequiredMessage_gasClientePK_codigoEstacion}"/>
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_gasClientePK_codigoCliente}" for="gasClientePK_codigoCliente" />
+                        <p:inputText id="gasClientePK_codigoCliente" value="#{gasClienteController.selected.gasClientePK.codigoCliente}" title="#{bundle.EditGasClienteTitle_gasClientePK_codigoCliente}" required="true" requiredMessage="#{bundle.EditGasClienteRequiredMessage_gasClientePK_codigoCliente}"/>
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_nombres}" for="nombres" />
+                        <p:inputText id="nombres" value="#{gasClienteController.selected.nombres}" title="#{bundle.EditGasClienteTitle_nombres}" required="true" requiredMessage="#{bundle.EditGasClienteRequiredMessage_nombres}"/>
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_apellidos}" for="apellidos" />
+                        <p:inputText id="apellidos" value="#{gasClienteController.selected.apellidos}" title="#{bundle.EditGasClienteTitle_apellidos}" required="true" requiredMessage="#{bundle.EditGasClienteRequiredMessage_apellidos}"/>
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_noRegistro}" for="noRegistro" />
+                        <p:inputText id="noRegistro" value="#{gasClienteController.selected.noRegistro}" title="#{bundle.EditGasClienteTitle_noRegistro}" required="true" requiredMessage="#{bundle.EditGasClienteRequiredMessage_noRegistro}"/>
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_giro}" for="giro" />
+                        <p:inputText id="giro" value="#{gasClienteController.selected.giro}" title="#{bundle.EditGasClienteTitle_giro}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_tipoCliente}" for="tipoCliente" />
+                        <p:inputText id="tipoCliente" value="#{gasClienteController.selected.tipoCliente}" title="#{bundle.EditGasClienteTitle_tipoCliente}" required="true" requiredMessage="#{bundle.EditGasClienteRequiredMessage_tipoCliente}"/>
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_telefono1}" for="telefono1" />
+                        <p:inputText id="telefono1" value="#{gasClienteController.selected.telefono1}" title="#{bundle.EditGasClienteTitle_telefono1}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_telefono2}" for="telefono2" />
+                        <p:inputText id="telefono2" value="#{gasClienteController.selected.telefono2}" title="#{bundle.EditGasClienteTitle_telefono2}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_fax}" for="fax" />
+                        <p:inputText id="fax" value="#{gasClienteController.selected.fax}" title="#{bundle.EditGasClienteTitle_fax}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_grancontribuyente}" for="grancontribuyente" />
+                        <p:inputText id="grancontribuyente" value="#{gasClienteController.selected.grancontribuyente}" title="#{bundle.EditGasClienteTitle_grancontribuyente}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_limiteCredito}" for="limiteCredito" />
+                        <p:inputText id="limiteCredito" value="#{gasClienteController.selected.limiteCredito}" title="#{bundle.EditGasClienteTitle_limiteCredito}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_saldo}" for="saldo" />
+                        <p:inputText id="saldo" value="#{gasClienteController.selected.saldo}" title="#{bundle.EditGasClienteTitle_saldo}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_creditoDisponible}" for="creditoDisponible" />
+                        <p:inputText id="creditoDisponible" value="#{gasClienteController.selected.creditoDisponible}" title="#{bundle.EditGasClienteTitle_creditoDisponible}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gasClienteController.selected.estado}" title="#{bundle.EditGasClienteTitle_estado}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_nit}" for="nit" />
+                        <p:inputText id="nit" value="#{gasClienteController.selected.nit}" title="#{bundle.EditGasClienteTitle_nit}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{gasClienteController.selected.direccion}" title="#{bundle.EditGasClienteTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_codigoDepartamento}" for="codigoDepartamento" />
+                        <p:inputText id="codigoDepartamento" value="#{gasClienteController.selected.codigoDepartamento}" title="#{bundle.EditGasClienteTitle_codigoDepartamento}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_codigoMunicipio}" for="codigoMunicipio" />
+                        <p:inputText id="codigoMunicipio" value="#{gasClienteController.selected.codigoMunicipio}" title="#{bundle.EditGasClienteTitle_codigoMunicipio}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_porcentajeDescuentoPista}" for="porcentajeDescuentoPista" />
+                        <p:inputText id="porcentajeDescuentoPista" value="#{gasClienteController.selected.porcentajeDescuentoPista}" title="#{bundle.EditGasClienteTitle_porcentajeDescuentoPista}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_porcentajeDescuentoTienda}" for="porcentajeDescuentoTienda" />
+                        <p:inputText id="porcentajeDescuentoTienda" value="#{gasClienteController.selected.porcentajeDescuentoTienda}" title="#{bundle.EditGasClienteTitle_porcentajeDescuentoTienda}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_codigoIslero}" for="codigoIslero" />
+                        <p:inputText id="codigoIslero" value="#{gasClienteController.selected.codigoIslero}" title="#{bundle.EditGasClienteTitle_codigoIslero}" />
+                        <p:outputLabel value="#{bundle.EditGasClienteLabel_fechaModificacion}" for="fechaModificacion" />
+                        <p:calendar id="fechaModificacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{gasClienteController.selected.fechaModificacion}" title="#{bundle.EditGasClienteTitle_fechaModificacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasClienteController.update}" value="#{bundle.Save}" update="display,:GasClienteListForm:datalist,:growl" onclick="GasClienteEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasClienteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

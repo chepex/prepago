@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasPrepagoErroresCreateDlg" widgetVar="GasPrepagoErroresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGasPrepagoErroresTitle}">
+            <h:form id="GasPrepagoErroresCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasPrepagoErroresController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_idError}" for="idError" />
+                        <p:inputText id="idError" value="#{gasPrepagoErroresController.selected.idError}" title="#{bundle.CreateGasPrepagoErroresTitle_idError}" required="true" requiredMessage="#{bundle.CreateGasPrepagoErroresRequiredMessage_idError}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_codigoEmpresa}" for="codigoEmpresa" />
+                        <p:inputText id="codigoEmpresa" value="#{gasPrepagoErroresController.selected.codigoEmpresa}" title="#{bundle.CreateGasPrepagoErroresTitle_codigoEmpresa}" required="true" requiredMessage="#{bundle.CreateGasPrepagoErroresRequiredMessage_codigoEmpresa}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_codigoEstacion}" for="codigoEstacion" />
+                        <p:inputText id="codigoEstacion" value="#{gasPrepagoErroresController.selected.codigoEstacion}" title="#{bundle.CreateGasPrepagoErroresTitle_codigoEstacion}" required="true" requiredMessage="#{bundle.CreateGasPrepagoErroresRequiredMessage_codigoEstacion}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_codigoIslero}" for="codigoIslero" />
+                        <p:inputText id="codigoIslero" value="#{gasPrepagoErroresController.selected.codigoIslero}" title="#{bundle.CreateGasPrepagoErroresTitle_codigoIslero}" required="true" requiredMessage="#{bundle.CreateGasPrepagoErroresRequiredMessage_codigoIslero}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_codigoPrepago}" for="codigoPrepago" />
+                        <p:inputText id="codigoPrepago" value="#{gasPrepagoErroresController.selected.codigoPrepago}" title="#{bundle.CreateGasPrepagoErroresTitle_codigoPrepago}" required="true" requiredMessage="#{bundle.CreateGasPrepagoErroresRequiredMessage_codigoPrepago}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_noPrepago}" for="noPrepago" />
+                        <p:inputText id="noPrepago" value="#{gasPrepagoErroresController.selected.noPrepago}" title="#{bundle.CreateGasPrepagoErroresTitle_noPrepago}" required="true" requiredMessage="#{bundle.CreateGasPrepagoErroresRequiredMessage_noPrepago}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{gasPrepagoErroresController.selected.descripcion}" title="#{bundle.CreateGasPrepagoErroresTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateGasPrepagoErroresRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoErroresLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{gasPrepagoErroresController.selected.fecha}" title="#{bundle.EditGasPrepagoErroresTitle_fecha}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasPrepagoErroresController.create}" value="#{bundle.Save}" update="display,:GasPrepagoErroresListForm:datalist,:growl" onclick="GasPrepagoErroresCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasPrepagoErroresCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

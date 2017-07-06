@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasEstacionViewDlg" widgetVar="GasEstacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGasEstacionTitle}">
+            <h:form id="GasEstacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gasEstacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_gasEstacionPK_codigoEstacion}"/>
+                        <h:outputText value="#{gasEstacionController.selected.gasEstacionPK.codigoEstacion}" title="#{bundle.ViewGasEstacionTitle_gasEstacionPK_codigoEstacion}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_nombreEstacion}"/>
+                        <h:outputText value="#{gasEstacionController.selected.nombreEstacion}" title="#{bundle.ViewGasEstacionTitle_nombreEstacion}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_telefonoFijo}"/>
+                        <h:outputText value="#{gasEstacionController.selected.telefonoFijo}" title="#{bundle.ViewGasEstacionTitle_telefonoFijo}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_fax}"/>
+                        <h:outputText value="#{gasEstacionController.selected.fax}" title="#{bundle.ViewGasEstacionTitle_fax}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_responsable}"/>
+                        <h:outputText value="#{gasEstacionController.selected.responsable}" title="#{bundle.ViewGasEstacionTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_estado}"/>
+                        <h:outputText value="#{gasEstacionController.selected.estado eq 'A'? 'Activo':'Inactivo'  }"    title="#{bundle.ViewGasEstacionTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_nombrePropietarioEstacion}"/>
+                        <h:outputText value="#{gasEstacionController.selected.nombrePropietarioEstacion}" title="#{bundle.ViewGasEstacionTitle_nombrePropietarioEstacion}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_direccion}"/>
+                        <h:outputText value="#{gasEstacionController.selected.direccion}" title="#{bundle.ViewGasEstacionTitle_direccion}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_ivaDl}"/>
+                        <h:outputText value="#{gasEstacionController.selected.ivaDl}" title="#{bundle.ViewGasEstacionTitle_ivaDl}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_nombreTienda}"/>
+                        <h:outputText value="#{gasEstacionController.selected.nombreTienda}" title="#{bundle.ViewGasEstacionTitle_nombreTienda}"/>
+                        <h:outputText value="#{bundle.ViewGasEstacionLabel_gasEmpresa}"/>
+                        <h:outputText value="#{gasEstacionController.selected.gasEmpresa}" title="#{bundle.ViewGasEstacionTitle_gasEmpresa}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GasEstacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

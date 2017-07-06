@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasPrepagoViewDlg" widgetVar="GasPrepagoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGasPrepagoTitle}">
+             <h:form id="GasPrepagoviewForm">
+                <b>Datos Generales </b>
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gasPrepagoController.selected != null}">
+                         
+                    <p:outputLabel value="Cliente:" for="cliente"  />    
+                    <p:inputText id ="cliente" value="#{gasPrepagoController.selected.gasCliente.nombres}"  disabled="true" required="true"></p:inputText>
+                    
+                    <p:outputLabel value="Factura:" for="numFactura"  />    
+                    <p:inputText id ="numFactura" value="#{gasPrepagoController.selected.numFactura}" size="20"   required="true"  requiredMessage="DIgite numero de factura"></p:inputText>
+                    
+                    <p:outputLabel value="Estacion:" for="gasEstacion"  />   
+                    <p:selectOneMenu id="gasEstacion" value="#{gasPrepagoController.selected.gasEstacion}" required="true" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_gasEstacion}" autoWidth="yes" >
+                        <f:selectItems value="#{gasEstacionController.itemsAvailableSelectOne}"                                        
+                                       var="gasEstacionItem"
+                                       itemLabel="#{gasEstacionItem.nombreEstacion}"
+                                       itemValue="#{gasEstacionItem}"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Todas: " />
+                    <p:selectBooleanCheckbox value="#{gasPrepagoController.selected.todas}" />
+                    
+                    </p:panelGrid>
+                    <br/><b>Parametros</b>
+                    <p:panelGrid columns="4" rendered="#{gasPrepagoController.selected != null}"> 
+                         
+                    <p:outputLabel value="Vigencia:" for="finicio" />    
+                    <p:calendar id="finicio" value="#{gasPrepagoController.selected.fechaInicio}"  required="true" pattern="dd/MM/yyyy" />
+                    
+                    
+                    <p:outputLabel value="Al" for="ffin" />    
+                    <p:calendar id="ffin" value="#{gasPrepagoController.selected.fechaFin}" required="true"  pattern="dd/MM/yyyy" />
+                    
+                    <p:outputLabel value="Monto:" for="monto" />    
+                    <p:inputText id ="monto" required="true" value="#{gasPrepagoController.selected.montoPrepagoUsd}"></p:inputText>
+                    
+                    <p:outputLabel value="Cantidad" for="cantidad" />    
+                    <p:inputText id ="cantidad" value="#{gasPrepagoController.selected.totalPrepagos}" required="true">
+                        <p:ajax event="blur" update="nfinal" listener="#{gasPrepagoController.actualizaNumeroFinal()}" />
+                    </p:inputText>
+                    
+                    <p:outputLabel value="Numero Inicial" for="ninicial" />    
+                    <p:inputText id ="ninicial" value="#{gasPrepagoController.selected.numeroInicial}" disabled="true" ></p:inputText>                    
+                    
+                    <p:outputLabel value="Numero Final" for="nfinal" />    
+                    <p:inputText id ="nfinal" value="#{gasPrepagoController.selected.numeroFinal}" disabled="true" ></p:inputText>                    
+                    
+                    
+                    </p:panelGrid>
+                    
+                    <br/><b>Remesa</b>
+                    <p:panelGrid columns="4" rendered="#{gasPrepagoController.selected != null}"> 
+                        
+                        <p:outputLabel value="Banco" for="banco" />    
+                        <p:outputLabel id ="banco" value="#{gasPrepagoController.selected.gascatBanco.banco}"  />
+                        
+                               
+                        
+                        <p:outputLabel value="Cuenta" for="cuenta" />    
+                        <p:outputLabel id ="cuenta" value="#{gasPrepagoController.selected.codigoCuenta}"  />
+                         
+                        
+                        
+                                        
+                        
+                        <p:outputLabel value="Remesa" for="remesa"  />    
+                        <p:outputLabel id ="remesa" value="#{gasPrepagoController.selected.numRemesa}"  />
+                        
+                        <p:outputLabel value="Monto" for="valor" />    
+                        <p:outputLabel id ="valor"  value="#{gasPrepagoController.selected.valor}"  />
+                       
+                    
+                    </p:panelGrid>
+                   
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

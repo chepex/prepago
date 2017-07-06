@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasEstacionCreateDlg" widgetVar="GasEstacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGasEstacionTitle}">
+            <h:form id="GasEstacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gasEstacionController.selected != null}">                        
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_nombreEstacion}" for="nombreEstacion" />
+                        <p:inputText id="nombreEstacion" value="#{gasEstacionController.selected.nombreEstacion}" title="#{bundle.CreateGasEstacionTitle_nombreEstacion}" required="true" requiredMessage="#{bundle.CreateGasEstacionRequiredMessage_nombreEstacion}"/>
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_telefonoFijo}" for="telefonoFijo" />
+                        <p:inputText id="telefonoFijo" value="#{gasEstacionController.selected.telefonoFijo}" title="#{bundle.CreateGasEstacionTitle_telefonoFijo}" />
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_fax}" for="fax" />
+                        <p:inputText id="fax" value="#{gasEstacionController.selected.fax}" title="#{bundle.CreateGasEstacionTitle_fax}" />
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_responsable}" for="responsable" />
+                        <p:inputText id="responsable" value="#{gasEstacionController.selected.responsable}" title="#{bundle.CreateGasEstacionTitle_responsable}" />
+                     <p:outputLabel value="#{bundle.CreateGasEmpresaLabel_estado}" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{gasEmpresaController.selected.estado}">
+                             <f:selectItem itemLabel="Activo" itemValue="A" />
+                             <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_nombrePropietarioEstacion}" for="nombrePropietarioEstacion" />
+                        <p:inputText id="nombrePropietarioEstacion" value="#{gasEstacionController.selected.nombrePropietarioEstacion}" title="#{bundle.CreateGasEstacionTitle_nombrePropietarioEstacion}" />
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{gasEstacionController.selected.direccion}" title="#{bundle.CreateGasEstacionTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_ivaDl}" for="ivaDl" />
+                        <p:inputText id="ivaDl" value="#{gasEstacionController.selected.ivaDl}" title="#{bundle.CreateGasEstacionTitle_ivaDl}" />
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_nombreTienda}" for="nombreTienda" />
+                        <p:inputText id="nombreTienda" value="#{gasEstacionController.selected.nombreTienda}" title="#{bundle.CreateGasEstacionTitle_nombreTienda}" />
+                        <p:outputLabel value="#{bundle.CreateGasEstacionLabel_gasEmpresa}" for="gasEmpresa" />
+                        <p:selectOneMenu id="gasEmpresa" value="#{gasEstacionController.selected.gasEmpresa}" required="true" requiredMessage="#{bundle.EditGasEstacionRequiredMessage_gasEmpresa}">
+                            <f:selectItems value="#{gasEmpresaController.itemsAvailableSelectOne}"
+                                var="gasEmpresaItem"
+                                itemValue="#{gasEmpresaItem}"
+                                itemLabel="#{gasEmpresaItem.nombreSociedad}" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasEstacionController.create}" value="#{bundle.Save}" update="display,:GasEstacionListForm:datalist,:growl" onclick="GasEstacionCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasEstacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

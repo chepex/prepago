@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>GrupoRVQ</title>
+
+       <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
+       
+       <h:outputScript name="js/print.min.js"  library="olympos-layout" />
+        <h:outputStylesheet name="css/print.min.css"  library="olympos-layout"  />
+        
+        <h:outputScript name="js/nanoscroller.js" library="olympos-layout" />
+        <h:outputScript name="js/layout.js" library="olympos-layout" />
+        
+        
+        
+        <ui:insert name="head"/>
+    </h:head>
+
+    <h:body styleClass="BlueTopbar PopupMenu" >
+    
+      
+        <ui:include src="topbar.xhtml" />
+
+        <!-- LAYOUT CONTAINER -->
+
+        <div id="layout-container">
+            <div id="layout-container-row">
+
+                <!-- LAYOUT MENU COVER -->
+                <div id="layout-menu-cover" class="nano Animated03">
+                    <div id="layout-menu-cover-scroll-content" class="nano-content">
+
+                        <ui:include src="layouttabmenu.xhtml" />
+
+                    </div>
+                </div>
+
+                <!-- PORTLETS COVER -->
+                <div id="layout-portlets-cover">
+                     <p:growl id="growl" showDetail="true" sticky="true" /> 
+                     
+                         
+                     <p:panel  rendered="#{loginBean.validarSesion()}">
+                         <ui:insert name="content" >
+                            Template  
+                        </ui:insert>
+                     </p:panel>
+                        
+                     <p:panel  rendered="#{loginBean.validarSesion()==false}">
+                        
+                            <div class="Wid80 MarAuto">
+                                <div class="Wid70 MarAuto WidAutoOnMobile TexAlCenter">
+
+                                    <div class="EmptyBox100 ShowOnDesktop"></div>
+                                    <div class="EmptyBox20 ShowOnMobile"></div>
+                                    <div class="Wid50 MarAuto WidAutoOnMobile">
+                                        <div class="Wid100 FontLatoRegular White Fs18">No tienes acceso para ingresa a esta pagina <br/> Ve a la pagina de login !</div>
+                                        <div class="EmptyBox30"></div>
+                                        <div class="Card ui-fluid ShadowEffect">
+                                            <div class="EmptyBox20"></div>
+                                            <div class="Container100">
+                                                <i class="fa fa-user-times Fs100 Red"></i>
+                                            </div>
+                                            <div class="Container100 FontLatoBlack Fs30 Red">
+                                                501 Acceso no autorizado!
+                                            </div>
+                                            <div class="EmptyBox10"></div>
+                                            <div class="Container100">
+                                                <p:button value="Login"  styleClass="RedButton" href="/home/login.xhtml"/>
+                                            </div>
+
+                                            
+
+                                        </div>
+
+                                        <div class="EmptyBox20"></div>
+                                        <div class="Wid100 FontLatoRegular Fs12 TransparentWhite"> <i class="fa fa-copyright DispInlBlock"></i> Departamento IT <br/>Grupo RVQ.</div>
+                                        <div class="EmptyBox30"></div>
+                                    </div>
+                                </div>
+                            </div>                          
+                     </p:panel>
+                    
+                        
+                        
+                   
+                     
+                  
+
+                    <ui:include src="footer.xhtml" />
+
+                </div>
+
+            </div>
+        </div>
+
+        <h:outputStylesheet name="css/core-layout.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/animate.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/nanoscroller.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-font.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-layout.css" library="olympos-layout" />
+    </h:body>
+
+</html>

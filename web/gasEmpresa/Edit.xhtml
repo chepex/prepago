@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasEmpresaEditDlg" widgetVar="GasEmpresaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGasEmpresaTitle}">
+            <h:form id="GasEmpresaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gasEmpresaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGasEmpresaLabel_codigoEmpresa}" for="codigoEmpresa" />
+                        <p:inputText id="codigoEmpresa" value="#{gasEmpresaController.selected.codigoEmpresa}" title="#{bundle.EditGasEmpresaTitle_codigoEmpresa}" required="true" requiredMessage="#{bundle.EditGasEmpresaRequiredMessage_codigoEmpresa}"/>
+                        <p:outputLabel value="#{bundle.EditGasEmpresaLabel_nombreSociedad}" for="nombreSociedad" />
+                        <p:inputText id="nombreSociedad" value="#{gasEmpresaController.selected.nombreSociedad}" title="#{bundle.EditGasEmpresaTitle_nombreSociedad}" required="true" requiredMessage="#{bundle.EditGasEmpresaRequiredMessage_nombreSociedad}"/>
+                        <p:outputLabel value="#{bundle.CreateGasEmpresaLabel_estado}" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{gasEmpresaController.selected.estado}">
+                             <f:selectItem itemLabel="Activo" itemValue="A" />
+                             <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditGasEmpresaLabel_noRegistro}" for="noRegistro" />
+                        <p:inputText id="noRegistro" value="#{gasEmpresaController.selected.noRegistro}" title="#{bundle.EditGasEmpresaTitle_noRegistro}" />
+                        <p:outputLabel value="#{bundle.EditGasEmpresaLabel_nit}" for="nit" />
+                        <p:inputText id="nit" value="#{gasEmpresaController.selected.nit}" title="#{bundle.EditGasEmpresaTitle_nit}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasEmpresaController.update}" value="#{bundle.Save}" update="display,:GasEmpresaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GasEmpresaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasEmpresaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

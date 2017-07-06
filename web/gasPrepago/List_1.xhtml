@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDocumentoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <div class="Card">
+                <h1 class="CardBigTopic">Prepago</h1>
+                <div class="SeparatorFull"></div>
+
+                <h:form id="GasPrepagoListForm">
+                    <p:panelGrid  columns="4" >
+                        <p:outputLabel value="Cliente:" for="cliente" />
+
+                        <p:autoComplete id="cliente" value="#{gasPrepagoController.cliente}" 
+                                        var="gasClienteItem"
+
+                                        itemValue="#{gasClienteItem}"
+                                        requiredMessage="Seleccione un cliente."
+                                        itemLabel="#{gasClienteItem.noRegistro }  #{gasClienteItem.nombres}"
+                                        completeMethod="#{gasClienteController.completeText}"                                        
+                                        size="60" 
+                                        maxResults="10"                                        
+                                        forceSelection="true"
+                                        />
+                        <p:commandButton actionListener="#{gasPrepagoController.consultar()}" value="Consultar" update="@form :growl" />
+                    </p:panelGrid>
+                    <p:panel header="#{bundle.ListGasPrepagoTitle}">
+                        <p:dataTable id="datalist" value="#{gasPrepagoController.items}" var="item"
+                                     selectionMode="single" selection="#{gasPrepagoController.selected}"
+
+                                     rowKey="#{item.gasPrepagoPK}"
+                                     scrollable="true" 
+                                     scrollHeight="250"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton autorizar editButton deleteButton :GasPrepagoListForm:datalistDetalle"/>
+                            <p:ajax event="rowUnselect" update="createButton autorizar editButton deleteButton :GasPrepagoListForm:datalistDetalle"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_gasPrepagoPK_codigoPrepago}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.gasPrepagoPK.codigoPrepago}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_noRegistro}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.noRegistro}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_fechaCreacion}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fechaCreacion}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_montoPrepagoUsd}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.montoPrepagoUsd}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_saldoPrepagoUsd}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.saldoPrepagoUsd}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_totalPrepagos}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.totalPrepagos}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_valorDePrepago}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.valorDePrepago}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_numeroInicial}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numeroInicial}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_numeroFinal}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numeroFinal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Autorizacion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.autorizacion}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListGasPrepagoTitle_estado}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.estado eq 'A'? 'Activo':'Inactivo'  }"/>                                
+                            </p:column>                        
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" disabled="#{empty gasPrepagoController.cliente}" actionListener="#{gasPrepagoController.prepareCreate}" update=":GasPrepagoCreateForm" oncomplete="PF('GasPrepagoCreateDialog').show()"/>
+                                <p:commandButton id="autorizar"   icon="ui-icon-check" value="Autorizar" update=":growl,datalist"  actionListener="#{gasPrepagoController.autorizar()}" disabled="#{gasPrepagoController.selected.autorizacion!=null}"    >
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GasPrepagoEditForm" oncomplete="PF('GasPrepagoEditDialog').show()" disabled="#{empty gasPrepagoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{gasPrepagoController.destroy}" update=":growl,datalist" disabled="#{empty gasPrepagoController.selected}">
+                                       <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                    
+                    <p:panel header="Prepagos utilizados"  id="datalistDetalle" >
+                        <p:dataTable  value="#{gasPrepagoController.selected.gasPrepagoDetalleList}" var="item"
+                                 selectionMode="single" selection="#{gasPrepagoDetalleController.selected}"                           
+                                 rowKey="#{item.gasPrepagoDetallePK}"
+                                 rendered="#{gasPrepagoController.selected!=null }"
+                                 scrollable="true" 
+                                 scrollHeight="250"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoDetalleTitle_gasPrepagoDetallePK_noPrepago}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gasPrepagoDetallePK.noPrepago}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoDetalleTitle_valorPrepago}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorPrepago}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoDetalleTitle_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoDetalleTitle_gasPrepago}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gasPrepago}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="No Unico"/>
+                            </f:facet>
+                            <h:outputText value="#{item.noUnico}"/>
+                        </p:column>                            
+                      
+                    </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

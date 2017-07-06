@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="300" pageHeight="900" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d551ba71-b4c0-43bd-b8ea-a0a48bfdeac1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="VCODIGO" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="VCANT" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM ( 
+SELECT SUBSTR(C.NOMBRES ||' '||C.APELLIDOS,0,35) NOMBRE,
+C.NO_REGISTRO,
+SUBSTR (C.DIRECCION,0,35) DIRECCION,
+'$'||D.VALOR_PREPAGO||'.00' VALOR_PREPAGO,
+D.NO_PREPAGO,
+D.AUTORIZACION,
+TO_CHAR(P.FECHA_INICIO, 'dd/mm/yyyy') FECHA_INICIO,
+TO_CHAR(P.FECHA_FIN, 'dd/mm/yyyy')  FECHA_FIN,
+TO_CHAR(SYSDATE, 'DD') DIA,
+TO_CHAR(SYSDATE, 'MM') MES,
+TO_CHAR(SYSDATE, 'YYYY') ANIO,
+P.CODIGO_PREPAGO ,
+ UPPER( expresar_en_letras.numero_a_letras(D.VALOR_PREPAGO)) ||' 00/100 DOLARES' VLETRA
+ FROM GAS_PREPAGO P, GAS_PREPAGO_DETALLE D, CLIENTE C
+WHERE P.CODIGO_EMPRESA = D.CODIGO_EMPRESA
+AND P.CODIGO_ESTACION = D.CODIGO_ESTACION
+AND P.CODIGO_PREPAGO = D.CODIGO_PREPAGO
+AND P.CODIGO_PREPAGO = $P{VCODIGO}
+AND IMPRESO  = 'N' 
+AND C.ID_CLIENTE = P.ID_CLIENTE
+ORDER BY D.NO_PREPAGO 
+)
+WHERE ROWNUM< $P{VCANT}]]>
+	</queryString>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="NO_REGISTRO" class="java.lang.String"/>
+	<field name="DIRECCION" class="java.lang.String"/>
+	<field name="VALOR_PREPAGO" class="java.lang.String"/>
+	<field name="NO_PREPAGO" class="java.math.BigDecimal"/>
+	<field name="AUTORIZACION" class="java.math.BigDecimal"/>
+	<field name="FECHA_INICIO" class="java.lang.String"/>
+	<field name="FECHA_FIN" class="java.lang.String"/>
+	<field name="DIA" class="java.lang.String"/>
+	<field name="MES" class="java.lang.String"/>
+	<field name="ANIO" class="java.lang.String"/>
+	<field name="CODIGO_PREPAGO" class="java.math.BigDecimal"/>
+	<field name="VLETRA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="505" splitType="Prevent">
+			<staticText>
+				<reportElement x="28" y="275" width="58" height="15" uuid="91d6863c-e805-43cc-97b8-4950294c696f"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Vigencia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="88" y="275" width="71" height="14" uuid="6f92cf2b-60e0-4435-8124-fd2d44c8c7fb"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="159" y="275" width="18" height="15" uuid="888ce345-917f-4ff1-835d-e9ec5a7d7633"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="275" width="73" height="14" uuid="f80ee66e-017d-4e09-886d-265766a6608c"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="88" width="31" height="15" uuid="ec18675a-fa8c-4614-965e-e4ac97544dc7"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="88" width="33" height="15" uuid="75db8f2c-507c-43b2-bd05-395f651bd75a"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="88" width="43" height="14" uuid="d4dc2c97-ca60-4005-b0a3-3aedc8ea48ab"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ANIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="109" width="207" height="14" uuid="39158e7d-69a4-48cb-a870-f86011710598"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="128" width="100" height="13" uuid="ee20c87f-3019-4ca6-bcef-b5b924535c1a"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NO_REGISTRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="166" width="136" height="14" uuid="f4db2905-ed2e-42cf-a9b4-f316563068c4"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRECCION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="294" width="81" height="18" uuid="62c7eb76-0bd7-48fe-a87f-7de9ae93b14e"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Correlativo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="294" width="44" height="18" uuid="cd716f21-f562-4da5-baa5-2799477ef290"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NO_PREPAGO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="27" y="319" width="81" height="15" uuid="fca4b64e-6b66-44ea-b84a-d9e3a691f5af"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Autorizacion:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="119" y="319" width="35" height="15" uuid="89c9fd05-6408-4796-a42e-e0e8d7fe658f"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AUTORIZACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="371" width="69" height="19" uuid="ad6c9f11-0de0-4378-a8cd-2205b4ca4a7e"/>
+				<textElement>
+					<font fontName="SansSerif" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALOR_PREPAGO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="258" width="64" height="15" uuid="d0199943-9af8-429a-8661-d7253b19cf18"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gasolina]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="56" y="146" width="184" height="15" uuid="41bfeb6c-0b7e-4b56-9ad3-eb668ab39e62"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VLETRA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasPrepagoDetalleCreateDlg" widgetVar="GasPrepagoDetalleCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGasPrepagoDetalleTitle}">
+            <h:form id="GasPrepagoDetalleCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasPrepagoDetalleController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoDetalleLabel_gasPrepagoDetallePK_noPrepago}" for="gasPrepagoDetallePK_noPrepago" />
+                        <p:inputText id="gasPrepagoDetallePK_noPrepago" value="#{gasPrepagoDetalleController.selected.gasPrepagoDetallePK.noPrepago}" title="#{bundle.CreateGasPrepagoDetalleTitle_gasPrepagoDetallePK_noPrepago}" required="true" requiredMessage="#{bundle.CreateGasPrepagoDetalleRequiredMessage_gasPrepagoDetallePK_noPrepago}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoDetalleLabel_valorPrepago}" for="valorPrepago" />
+                        <p:inputText id="valorPrepago" value="#{gasPrepagoDetalleController.selected.valorPrepago}" title="#{bundle.CreateGasPrepagoDetalleTitle_valorPrepago}" required="true" requiredMessage="#{bundle.CreateGasPrepagoDetalleRequiredMessage_valorPrepago}"/>
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoDetalleLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gasPrepagoDetalleController.selected.estado}" title="#{bundle.CreateGasPrepagoDetalleTitle_estado}" />
+                        <p:outputLabel value="#{bundle.CreateGasPrepagoDetalleLabel_gasPrepago}" for="gasPrepago" />
+                        <p:selectOneMenu id="gasPrepago" value="#{gasPrepagoDetalleController.selected.gasPrepago}" required="true" requiredMessage="#{bundle.EditGasPrepagoDetalleRequiredMessage_gasPrepago}">
+                            <f:selectItems value="#{gasPrepagoController.itemsAvailableSelectOne}"
+                                           var="gasPrepagoItem"
+                                           itemValue="#{gasPrepagoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasPrepagoDetalleController.create}" value="#{bundle.Save}" update="display,:GasPrepagoDetalleListForm:datalist,:growl" onclick="GasPrepagoDetalleCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasPrepagoDetalleCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

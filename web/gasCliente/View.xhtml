@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasClienteViewDlg" widgetVar="GasClienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGasClienteTitle}">
+            <h:form id="GasClienteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasClienteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_gasClientePK_codigoEmpresa}"/>
+                        <h:outputText value="#{gasClienteController.selected.gasClientePK.codigoEmpresa}" title="#{bundle.ViewGasClienteTitle_gasClientePK_codigoEmpresa}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_gasClientePK_codigoEstacion}"/>
+                        <h:outputText value="#{gasClienteController.selected.gasClientePK.codigoEstacion}" title="#{bundle.ViewGasClienteTitle_gasClientePK_codigoEstacion}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_gasClientePK_codigoCliente}"/>
+                        <h:outputText value="#{gasClienteController.selected.gasClientePK.codigoCliente}" title="#{bundle.ViewGasClienteTitle_gasClientePK_codigoCliente}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_nombres}"/>
+                        <h:outputText value="#{gasClienteController.selected.nombres}" title="#{bundle.ViewGasClienteTitle_nombres}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_apellidos}"/>
+                        <h:outputText value="#{gasClienteController.selected.apellidos}" title="#{bundle.ViewGasClienteTitle_apellidos}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_noRegistro}"/>
+                        <h:outputText value="#{gasClienteController.selected.noRegistro}" title="#{bundle.ViewGasClienteTitle_noRegistro}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_giro}"/>
+                        <h:outputText value="#{gasClienteController.selected.giro}" title="#{bundle.ViewGasClienteTitle_giro}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_tipoCliente}"/>
+                        <h:outputText value="#{gasClienteController.selected.tipoCliente}" title="#{bundle.ViewGasClienteTitle_tipoCliente}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_telefono1}"/>
+                        <h:outputText value="#{gasClienteController.selected.telefono1}" title="#{bundle.ViewGasClienteTitle_telefono1}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_telefono2}"/>
+                        <h:outputText value="#{gasClienteController.selected.telefono2}" title="#{bundle.ViewGasClienteTitle_telefono2}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_fax}"/>
+                        <h:outputText value="#{gasClienteController.selected.fax}" title="#{bundle.ViewGasClienteTitle_fax}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_grancontribuyente}"/>
+                        <h:outputText value="#{gasClienteController.selected.grancontribuyente}" title="#{bundle.ViewGasClienteTitle_grancontribuyente}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_limiteCredito}"/>
+                        <h:outputText value="#{gasClienteController.selected.limiteCredito}" title="#{bundle.ViewGasClienteTitle_limiteCredito}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_saldo}"/>
+                        <h:outputText value="#{gasClienteController.selected.saldo}" title="#{bundle.ViewGasClienteTitle_saldo}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_creditoDisponible}"/>
+                        <h:outputText value="#{gasClienteController.selected.creditoDisponible}" title="#{bundle.ViewGasClienteTitle_creditoDisponible}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_estado}"/>
+                        <h:outputText value="#{gasClienteController.selected.estado}" title="#{bundle.ViewGasClienteTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_nit}"/>
+                        <h:outputText value="#{gasClienteController.selected.nit}" title="#{bundle.ViewGasClienteTitle_nit}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_direccion}"/>
+                        <h:outputText value="#{gasClienteController.selected.direccion}" title="#{bundle.ViewGasClienteTitle_direccion}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_codigoDepartamento}"/>
+                        <h:outputText value="#{gasClienteController.selected.codigoDepartamento}" title="#{bundle.ViewGasClienteTitle_codigoDepartamento}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_codigoMunicipio}"/>
+                        <h:outputText value="#{gasClienteController.selected.codigoMunicipio}" title="#{bundle.ViewGasClienteTitle_codigoMunicipio}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_porcentajeDescuentoPista}"/>
+                        <h:outputText value="#{gasClienteController.selected.porcentajeDescuentoPista}" title="#{bundle.ViewGasClienteTitle_porcentajeDescuentoPista}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_porcentajeDescuentoTienda}"/>
+                        <h:outputText value="#{gasClienteController.selected.porcentajeDescuentoTienda}" title="#{bundle.ViewGasClienteTitle_porcentajeDescuentoTienda}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_codigoIslero}"/>
+                        <h:outputText value="#{gasClienteController.selected.codigoIslero}" title="#{bundle.ViewGasClienteTitle_codigoIslero}"/>
+                        <h:outputText value="#{bundle.ViewGasClienteLabel_fechaModificacion}"/>
+                        <h:outputText value="#{gasClienteController.selected.fechaModificacion}" title="#{bundle.ViewGasClienteTitle_fechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GasClienteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

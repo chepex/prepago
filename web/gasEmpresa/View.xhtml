@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasEmpresaViewDlg" widgetVar="GasEmpresaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGasEmpresaTitle}">
+            <h:form id="GasEmpresaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gasEmpresaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGasEmpresaLabel_codigoEmpresa}"/>
+                        <h:outputText value="#{gasEmpresaController.selected.codigoEmpresa}" title="#{bundle.ViewGasEmpresaTitle_codigoEmpresa}"/>
+                        <h:outputText value="#{bundle.ViewGasEmpresaLabel_nombreSociedad}"/>
+                        <h:outputText value="#{gasEmpresaController.selected.nombreSociedad}" title="#{bundle.ViewGasEmpresaTitle_nombreSociedad}"/>
+                        <h:outputText value="#{bundle.ViewGasEmpresaLabel_estado}"/>
+                        <h:outputText value="#{gasEmpresaController.selected.estado eq 'A'? 'Activo':'Inactivo'  }" title="#{bundle.ViewGasEmpresaTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewGasEmpresaLabel_noRegistro}"/>
+                        <h:outputText value="#{gasEmpresaController.selected.noRegistro}" title="#{bundle.ViewGasEmpresaTitle_noRegistro}"/>
+                        <h:outputText value="#{bundle.ViewGasEmpresaLabel_nit}"/>
+                        <h:outputText value="#{gasEmpresaController.selected.nit}" title="#{bundle.ViewGasEmpresaTitle_nit}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GasEmpresaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,18 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:po="http://primefaces.org/olympos">
+    <ul id="layout-tab-menu">
+         
+        <li><a href="#"   rel="layout-tab-profile"> <i class="icon icon-user106"></i> <span class="layout-tab-menu-link-text"><span></span> Profile</span> </a></li>        
+        <li><a href="#" class="active" rel="layout-menu"> <i class="icon-speedometer33"></i> <span class="layout-tab-menu-link-text"><span></span> Olympos Main Menu</span> </a></li>        
+        <li><a href="#" rel="layout-addressbook"> <i class="icon-emails5"></i> <span class="layout-tab-menu-link-text"><span></span> My Address Book</span> </a></li>
+        <li><a href="/appMenus/modulos.xhtml?token=#{loginBean.token}"   > <i class="fa  fa-th "></i> <span class="layout-tab-menu-link-text"><span></span> Modulos</span> </a></li>
+        <li><a href="/prepago/logout.xhtml"    > <i class="fa  fa-power-off "></i> <span class="layout-tab-menu-link-text"><span></span> Salir</span> </a></li>        
+    </ul>    
+    <ui:include src="layoutmenu.xhtml"/>    
+    <ui:include src="othertabsubmenus.xhtml"/>
+</ui:composition>

@@ -1,0 +1,29 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+    <!-- LAYOUT TOPBAR COVER -->
+    <div id="layout-topbar-cover">
+        <div id="layout-topbar-row">
+            <div id="layout-topbar-left">
+                <a href="#" id="logo"><h:graphicImage name="images/logo2.png" id="logo" library="olympos-layout"   /></a>
+            </div>
+            <div id="layout-topbar-right">
+                <a id="menu-resize-btn" class="topbar-link Animated03"><h:graphicImage name="images/menu-resize-btn-icon.svg" id="menu-resize-btn" library="olympos-layout" /></a>
+                <a id="mobile-menu-btn" class="topbar-link Animated03"><h:graphicImage name="images/menu-btn-icon.svg" id="menu-btn-icon" library="olympos-layout" /></a>                 
+                <div id="search-bar">
+                    <h:form>
+                        <br/>
+                        <span class="Fs20 White BordTop "  > #{loginBean.gasEstacion.nombreEstacion} </span>                            
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</ui:composition>

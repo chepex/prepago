@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDocumentoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+        <div class="Card">
+            <h1 class="CardBigTopic">Crear Prepago</h1>
+            <div class="SeparatorFull"></div>            
+                <h:form id="GasPrepagoListForm">
+                    <center>                        
+                        Datos Generales
+                    <p:panelGrid  columns="4" >
+                        
+                        
+                    <p:outputLabel value="Cliente:" for="cliente" />
+                    
+                        <p:autoComplete id="cliente" value="#{gasPrepagoController.cliente}" 
+                                            var="gasClienteItem"
+                                            itemValue="#{gasClienteItem}"
+                                            requiredMessage="Seleccione un cliente."
+                                            itemLabel="#{gasClienteItem.noRegistro }  #{gasClienteItem.nombres}"
+                                            completeMethod="#{gasClienteController.completeText}"                                        
+                                            size="60" 
+                                            maxResults="10"                                        
+                                            forceSelection="true"
+                                            />
+
+                        <p:outputLabel value="Descripcion:" for="descripcion" />    
+                        <p:inputText id ="descripcion" value="#{gasPrepagoController.vdescripcion}"></p:inputText>
+
+                        <p:outputLabel value="Fecha Inicio" for="finicio" />    
+                        <p:calendar id="finicio" value="#{gasPrepagoController.fechai}" mask="99/99/9999" />
+
+                        <p:outputLabel value="Fecha Final" for="ffinal" />    
+                        <p:calendar id="ffinal" value="#{gasPrepagoController.fechaf}" mask="99/99/9999"/>
+
+                        <p:outputLabel value="Monto:" for="monto" />    
+                        <p:inputText id ="monto" value="#{gasPrepagoController.monto}"></p:inputText>
+
+                        <p:outputLabel value="Cantidad:" for="cantidad" />    
+                        <p:inputText id ="cantidad" value="#{gasPrepagoController.cantidad}"></p:inputText>                    
+
+
+                    </p:panelGrid>  
+                    <p:commandButton actionListener="#{gasPrepagoController.create}" value="Generar" update=":growl" />
+                    </center>
+                </h:form>
+        </div>
+           
+        </ui:define>
+    </ui:composition>
+
+</html>

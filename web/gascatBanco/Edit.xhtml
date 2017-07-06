@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GascatBancoEditDlg" widgetVar="GascatBancoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGascatBancoTitle}">
+            <h:form id="GascatBancoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gascatBancoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGascatBancoLabel_codigoBanco}" for="codigoBanco" />
+                        <p:inputText id="codigoBanco" value="#{gascatBancoController.selected.codigoBanco}" title="#{bundle.EditGascatBancoTitle_codigoBanco}" required="true" requiredMessage="#{bundle.EditGascatBancoRequiredMessage_codigoBanco}"/>
+                        <p:outputLabel value="#{bundle.EditGascatBancoLabel_banco}" for="banco" />
+                        <p:inputText id="banco" value="#{gascatBancoController.selected.banco}" title="#{bundle.EditGascatBancoTitle_banco}" required="true" requiredMessage="#{bundle.EditGascatBancoRequiredMessage_banco}"/>
+                        <p:outputLabel value="#{bundle.EditGascatBancoLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gascatBancoController.selected.estado}" title="#{bundle.EditGascatBancoTitle_estado}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gascatBancoController.update}" value="#{bundle.Save}" update="display,:GascatBancoListForm:datalist,:growl" onclick="GascatBancoEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GascatBancoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

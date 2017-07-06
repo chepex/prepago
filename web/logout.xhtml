@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Olympos</title>
+        <ui:insert name="head" />
+    </h:head>
+
+    <h:body styleClass="AquaBack" onload="#{loginBean.logout()}">
+         <p:growl id="growl" showDetail="true" sticky="true" /> 
+          
+          <h:form id="loginForm">
+          
+           
+            <div class="Wid70 MarAuto">
+            <div class="Wid70 MarAuto WidAutoOnMobile TexAlCenter">
+
+                <div class="Wid70 MarAuto WidAutoOnMobile">
+                    <div class="EmptyBox30"></div>
+                    <div class="Container50 Responsive50">
+                        <a href="dashboard-supplychain.xhtml" class="DispBlock Fleft FloatNoneOnMobile">
+                            <h:graphicImage name="images/logo2.png" library="olympos-layout" style="height:25px;"/></a>
+                    </div>
+                     
+                    <div class="EmptyBox10 ShowOnMobile"></div>
+
+                    <div class="EmptyBox100 ShowOnDesktop"></div>
+                    <div class="EmptyBox20 ShowOnMobile"></div>
+
+                    <div class="Wid100 FontLatoRegular White Fs18">Bienvenido a webRVQ !</div>
+                    <div class="EmptyBox30"></div>
+                    <div class="Card ui-fluid ShadowEffect">
+                        <div class="Container100">
+                            <p:inputText   placeholder="E-Mail Address" value="#{loginBean.username}" style="padding:15px !important;"/>
+                        </div>
+                        <div class="Container100">
+                            <p:password placeholder="Password"  value="#{loginBean.password}" style="padding:15px !important;"/>
+                        </div>
+                        <div class="Container100">                   
+                            <p:selectOneMenu id="gasEstacion" value="#{loginBean.gasEstacion}" required="true"  style="    padding: 10px !important;" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_gasEstacion}" autoWidth="yes" >
+                            <f:selectItems value="#{gasEstacionController.itemsAvailableSelectOne}"                                        
+                                        var="gasEstacionItem"
+                                        itemLabel="#{gasEstacionItem.nombreEstacion}"
+                                        itemValue="#{gasEstacionItem}"/>
+                            </p:selectOneMenu>
+                       </div>
+                        <div class="Container100 TexAlLeft">
+                            <div class="EmptyBox10"></div>
+                           
+                        </div>
+                             <div class="EmptyBox20"></div>
+                        <div class="Container100">
+                               <p:commandButton actionListener="#{loginBean.login}" value="Sign In" update="@form, :growl"  />
+                            
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+                        <div class="EmptyBox10"></div>
+                         
+                    </div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Wid100 FontLatoRegular Fs12 TransparentWhite"> <i class="fa fa-copyright DispInlBlock"></i> Grupo RVQ, Departamento IT <br/>All rights reserved.</div>
+                    <div class="EmptyBox30"></div>
+                </div>
+            </div>
+        </div>
+            </h:form>
+        <style>.ui-button-text, .ui-button-text-only .ui-button-text{padding:15px !important; transition:none !important;}</style>
+
+        <h:outputStylesheet name="css/core-layout.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/animate.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-layout.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-font.css" library="olympos-layout" />
+    </h:body>
+
+</html>

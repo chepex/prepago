@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListGasPrepagoErroresTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="GasPrepagoErroresListForm">
+                <p:panel header="#{bundle.ListGasPrepagoErroresTitle}">
+                    <p:dataTable id="datalist" value="#{gasPrepagoErroresController.items}" var="item"
+                                 selectionMode="single" selection="#{gasPrepagoErroresController.selected}"                           
+                                 rowKey="#{item.idError}"
+                                 scrollable="true" 
+                                 scrollHeight="250"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_idError}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idError}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_codigoEmpresa}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoEmpresa}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_codigoEstacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoEstacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_codigoIslero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoIslero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_codigoPrepago}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoPrepago}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_noPrepago}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.noPrepago}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGasPrepagoErroresTitle_fecha}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gasPrepagoErroresController.prepareCreate}" update=":GasPrepagoErroresCreateForm" oncomplete="PF('GasPrepagoErroresCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GasPrepagoErroresViewForm" oncomplete="PF('GasPrepagoErroresViewDialog').show()" disabled="#{empty gasPrepagoErroresController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GasPrepagoErroresEditForm" oncomplete="PF('GasPrepagoErroresEditDialog').show()" disabled="#{empty gasPrepagoErroresController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{gasPrepagoErroresController.destroy}" update=":growl,datalist" disabled="#{empty gasPrepagoErroresController.selected}">
+                                <p:confirm header="Confirmation" message="Desea eliminar este registro ?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

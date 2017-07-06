@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDocumentoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+        <div class="Card">
+            <h1 class="CardBigTopic">Usuario</h1>
+            <div class="SeparatorFull"></div>
+            <h:form id="GascatUsuarioListForm">
+                <p:panel header="#{bundle.ListGascatUsuarioTitle}">
+                    <p:dataTable id="datalist" value="#{gascatUsuarioController.items}" var="item"
+                                 selectionMode="single" selection="#{gascatUsuarioController.selected}"
+                                 
+                                 rowKey="#{item.gascatUsuarioPK}"
+                                scrollable="true" 
+                                 scrollHeight="250"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_gascatUsuarioPK_username}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gascatUsuarioPK.username}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_apellido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellido}"/>
+                        </p:column>
+                          
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado eq 'A'? 'Activo':'Inactivo'  }"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_codigoIslero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoIslero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_pwd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pwd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_gasEstacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gasEstacion.nombreEstacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGascatUsuarioTitle_codigoTiporol}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoTiporol.descripcion}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gascatUsuarioController.prepareCreate}" update=":GascatUsuarioCreateForm" oncomplete="PF('GascatUsuarioCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GascatUsuarioViewForm" oncomplete="PF('GascatUsuarioViewDialog').show()" disabled="#{empty gascatUsuarioController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GascatUsuarioEditForm" oncomplete="PF('GascatUsuarioEditDialog').show()" disabled="#{empty gascatUsuarioController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"    value="#{bundle.Delete}" actionListener="#{gascatUsuarioController.destroy}"  disabled="true"  update=":growl,datalist" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+ </div>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/templatePista.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDocumentoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            
+            <style>
+                .ui-button-text {
+                    font-size: 30px !important;      
+                    
+                   
+                }
+                </style>
+            <div class="Card">
+                <h1 class="CardBigTopic">Consulta Prepago</h1>
+                <div class="SeparatorFull"></div>
+
+                <h:form id="GasPrepagoListForm">
+                    <p:panel header="Datos usuario"   class="Container100">
+                         <div class="Card ui-fluid ShadowEffect">
+                        <div class="Container30">
+                            <p:inputText   placeholder="Codigo Islero" value="#{loginBean.vislero}" style="padding:15px !important;"/>
+                        </div>
+                        <div class="Container30">
+                            <p:password placeholder="Password"  value="#{loginBean.password}" style="padding:15px !important;"/>
+                        </div>
+                        <div class="Container20">                   
+                            <p:selectOneMenu id="gasEstacion" value="#{loginBean.gasEstacion}" required="true"  style="    padding: 10px !important;" requiredMessage="#{bundle.EditGascatUsuarioRequiredMessage_gasEstacion}" autoWidth="yes" >
+                            <f:selectItems value="#{gasEstacionController.itemsAvailableSelectOne}"                                        
+                                           var="gasEstacionItem"
+                                           itemLabel="#{gasEstacionItem.nombreEstacion}"
+                                           itemValue="#{gasEstacionItem}"/>
+                        </p:selectOneMenu>
+                          </div>
+                       
+                        <div class="Container20 ">
+                            <p:commandButton actionListener="#{loginBean.loginIslero()}" rendered="#{SSUSUARIO==null}"  value="Ingresar"  icon="fa  fa-key White"  update="@form, :growl"  />
+                            <p:commandButton actionListener="#{loginBean.logoutIslero()}" value="#{SSUSUARIO}" rendered="#{SSUSUARIO != null}"   icon="fa   fa-power-off White"  update="@form, :growl"  />                                                    
+                        </div>
+                             </div>
+                    
+                    </p:panel>
+                    
+                    
+                    <p:panel header="Prepago"   class="Container100" rendered="#{SSUSUARIO!=null}">
+                    <span class="Fs30 "> Numero de prepago:</span>
+                      
+
+                    <p:inputText class="Fs30 " id ="numero" value="#{gasPrepagoController.numeroPrepago}" size="10"></p:inputText>                    
+                    <p:commandButton id = "createButton" actionListener="#{gasPrepagoController.consulta2}"   class="Fs20"     update="@form :growl" icon="fa fa-search  White" />
+                    <br/>
+                    <br/>
+                    <div class="Container20"></div>
+                    <p:panel header="Detalle" rendered="#{gasPrepagoController.selected!=null}" class="Container60">
+                        
+                        <div class="Container">
+                            <CENTER>
+                            <div class="Container100">
+                                <p:outputLabel value="Cliente:  " for="cliente" class="Fs30" />    
+                                <p:outputLabel id ="cliente" value="#{gasPrepagoController.selected.cliente.nombres}"  class="Fs30 "></p:outputLabel>
+                            </div>
+                            <p:panelGrid columns="4">                              
+                                <p:outputLabel value="Vigencia:  "  class="Fs30" />    
+                                <p:calendar id="finicio" value="#{gasPrepagoController.selected.fechaInicio}"   pattern="dd-MM-yyyy"/>                    
+                                <p:outputLabel value="   Al   " for="ffinal"  class="Fs30"/>    
+                                <p:calendar id="ffinal" value="#{gasPrepagoController.selected.fechaFin}" pattern="dd-MM-yyyy"/> 
+                                <p:outputLabel value="    Estado:  " class="Fs30" />   
+                                <div class="Fleft #{gasPrepagoController.estado eq 'Libre'? 'GreenBack':'RedBack'  }   White  ">
+                                    <span  class="Fs30">#{gasPrepagoController.estado} </span>
+                                </div>                                     
+                                <p:outputLabel value="Monto:  " for="monto"  class="Fs30"/>    
+                                <p:outputLabel id ="monto" value="$ #{gasPrepagoController.selected.valorDePrepago}" class="Fs30"/>                                    
+                            </p:panelGrid>
+                            <br></br>
+                            <p:commandButton id = "utilizar" disabled="#{gasPrepagoController.estado ne 'Libre'}"  value="Validar"   icon="Fs20 White fa fa-check-square-o "  update=":GasPrepagoConsumirForm" oncomplete="PF('GasPrepagoConsumirDialog').show()"     />
+                        </CENTER>
+                         
+                        </div>
+                        </p:panel>
+                    </p:panel>
+                    <div class="Container80">
+                        
+                    </div>
+                    <div class="Container20">
+                        <p:commandButton id="viewButton2" icon="fa  fa-eye  White"  styleClass=" RedButton" rendered="#{gasPrepagoController.selected!=null}"  disabled="#{SSUSUARIO == null}"  actionListener="#{gasPrepagoErroresController.prepareCreatePista(gasPrepagoController.numeroPrepago) }"  update=":GasPrepagoErroresCreateForm" oncomplete="PF('GasPrepagoErroresCreateDialog').show()"   value="Reportar error"/>
+                    </div>
+                    
+                </h:form>
+            </div>
+            
+            <ui:include src="CreateError.xhtml"/>
+            <p:dialog id="GasPrepagoConsumirDlg" widgetVar="GasPrepagoConsumirDialog" modal="true" resizable="false" appendTo="@(body)" header="Consumir">
+                <h:form id="GasPrepagoConsumirForm">
+                    <p:outputLabel value="Autorizacion:"  class="Fs30" />   
+                    <p:inputText class="Fs30 " id ="numero" value="#{gasPrepagoController.autorizacion}" size="10" required="true"></p:inputText>   
+                    <p:commandButton id = "Consumir"     icon="Fs20 White fa fa-check-square-o " actionListener="#{gasPrepagoController.consumir}"  onclick="GasPrepagoConsumirDialog.hide()" value="Consumir" update="@form :growl" />
+                </h:form>
+            </p:dialog>
+            
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

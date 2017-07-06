@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrepagoControlConsumoCreateDlg" widgetVar="PrepagoControlConsumoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePrepagoControlConsumoTitle}">
+            <h:form id="PrepagoControlConsumoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prepagoControlConsumoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_idControl}" for="idControl" />
+                        <p:inputText id="idControl" value="#{prepagoControlConsumoController.selected.idControl}" title="#{bundle.CreatePrepagoControlConsumoTitle_idControl}" required="true" requiredMessage="#{bundle.CreatePrepagoControlConsumoRequiredMessage_idControl}"/>
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_codigoEmpresa}" for="codigoEmpresa" />
+                        <p:inputText id="codigoEmpresa" value="#{prepagoControlConsumoController.selected.codigoEmpresa}" title="#{bundle.CreatePrepagoControlConsumoTitle_codigoEmpresa}" />
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_codigoEstacion}" for="codigoEstacion" />
+                        <p:inputText id="codigoEstacion" value="#{prepagoControlConsumoController.selected.codigoEstacion}" title="#{bundle.CreatePrepagoControlConsumoTitle_codigoEstacion}" />
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_codigoPrepago}" for="codigoPrepago" />
+                        <p:inputText id="codigoPrepago" value="#{prepagoControlConsumoController.selected.codigoPrepago}" title="#{bundle.CreatePrepagoControlConsumoTitle_codigoPrepago}" />
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_noPrepago}" for="noPrepago" />
+                        <p:inputText id="noPrepago" value="#{prepagoControlConsumoController.selected.noPrepago}" title="#{bundle.CreatePrepagoControlConsumoTitle_noPrepago}" />
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_usuario}" for="usuario" />
+                        <p:inputText id="usuario" value="#{prepagoControlConsumoController.selected.usuario}" title="#{bundle.CreatePrepagoControlConsumoTitle_usuario}" />
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{prepagoControlConsumoController.selected.fecha}" title="#{bundle.EditPrepagoControlConsumoTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePrepagoControlConsumoLabel_digitado}" for="digitado" />
+                        <p:inputText id="digitado" value="#{prepagoControlConsumoController.selected.digitado}" title="#{bundle.CreatePrepagoControlConsumoTitle_digitado}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prepagoControlConsumoController.create}" value="#{bundle.Save}" update="display,:PrepagoControlConsumoListForm:datalist,:growl" onclick="PrepagoControlConsumoCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PrepagoControlConsumoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

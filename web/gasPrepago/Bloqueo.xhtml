@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml" >
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDocumentoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content"  >
+            
+            <style>
+                .ui-button-text {
+                    font-size: 30px !important;      
+                    
+                   
+                }
+                </style>
+            <div class="Card">
+                <h1 class="CardBigTopic">Consulta prepago bloqueado</h1>
+                <div class="SeparatorFull"></div>
+
+                <h:form id="GasPrepagoListForm" >
+                    
+                      
+                     
+                    <span class="Fs30 "> Numero de prepago:</span>
+                      
+
+                    <p:inputText class="Fs30 " id ="numero" value="#{gasPrepagoController.numeroPrepago}" size="10"></p:inputText>                    
+                    <p:commandButton id = "createButton" actionListener="#{gasPrepagoController.consultaBloqueados()}"   class="Fs20"   update="@form :growl" icon="fa fa-search  White" />
+                    <p:commandButton id = "desButton" actionListener="#{gasPrepagoController.desbloquear()}" disabled="#{gasPrepagoController.estado ne 'Bloqueado' }"  rendered="#{gasPrepagoController.selected!=null}"   class="Fs20"   value="Desbloquear" update="@form :growl" icon="fa  fa-ban   White" />
+                    <br/>
+                    <br/>
+                    <div class="Container20"></div>
+                    <p:panel header="Detalle" rendered="#{gasPrepagoController.selected!=null}" class="Container60">
+                        
+                        <div class="Container">
+                            <CENTER>
+                            <div class="Container100">
+                                <p:outputLabel value="Cliente:  " for="cliente" class="Fs30" />    
+                                <p:outputLabel id ="cliente" value="#{gasPrepagoController.selected.cliente.nombres}"  class="Fs30 "></p:outputLabel>
+                            </div>
+                            <p:panelGrid columns="4">                              
+                                <p:outputLabel value="Vigencia:  "  class="Fs30" />    
+                                <p:calendar id="finicio" value="#{gasPrepagoController.selected.fechaInicio}"   pattern="dd-MM-yyyy"/>                    
+                                <p:outputLabel value="   Al   " for="ffinal"  class="Fs30"/>    
+                                <p:calendar id="ffinal" value="#{gasPrepagoController.selected.fechaFin}" pattern="dd-MM-yyyy"/> 
+                                <p:outputLabel value="    Estado:  " class="Fs30" />    
+                                <div class="Fleft #{gasPrepagoController.estado eq 'Libre'? 'GreenBack' : gasPrepagoController.estado eq 'Bloqueado' ? 'LeadenBack' :'RedBack'  }   White  ">
+                                    <span  class="Fs30">#{gasPrepagoController.estado} </span>
+                                </div>                                     
+                                <p:outputLabel value="Monto:  " for="monto"  class="Fs30"/>    
+                                <p:outputLabel id ="monto" value="$ #{gasPrepagoController.selected.valorDePrepago}" class="Fs30"/>  
+                                
+                                <p:outputLabel value="Estacion:  " for="estacion"  class="Fs30"/>    
+                                <p:outputLabel id ="estacion" value="#{gasPrepagoController.selected.gasEstacion.nombreEstacion}" class="Fs15"/>  
+                                
+                                <p:outputLabel value="Todas:  " for="todas"  class="Fs30"/>    
+                                <p:selectBooleanCheckbox id= "todas" value="#{gasPrepagoController.selected.todas}" /> 
+                                
+                                 </p:panelGrid>
+                                
+                                
+                                
+                                 <p:panelGrid columns="4">    
+                                        <p:dataTable id="datalist" value="#{gasPrepagoController.lprepagoControlConsumo}" var="item"
+                                         selectionMode="single" selection="#{prepagoControlConsumoController.selected}"                           
+                                         rowKey="#{item.idControl}"
+                                         scrollable="true" 
+                                         scrollHeight="250"
+                                         >
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPrepagoControlConsumoTitle_codigoPrepago}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.codigoPrepago}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPrepagoControlConsumoTitle_noPrepago}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.noPrepago}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPrepagoControlConsumoTitle_usuario}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.usuario}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPrepagoControlConsumoTitle_fecha}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.fecha}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPrepagoControlConsumoTitle_digitado}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.digitado}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                            </p:panelGrid>
+                                
+                                
+                            <br></br>
+                             
+                        </CENTER>
+                                 
+                                
+                        
+                             
+                      
+                        
+                        </div>
+                        
+                    </p:panel>
+                
+                </h:form>
+            </div>
+             
+        </ui:define>
+    </ui:composition>
+
+</html>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrepagoControlConsumoViewDlg" widgetVar="PrepagoControlConsumoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPrepagoControlConsumoTitle}">
+            <h:form id="PrepagoControlConsumoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prepagoControlConsumoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_idControl}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.idControl}" title="#{bundle.ViewPrepagoControlConsumoTitle_idControl}"/>
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_codigoEmpresa}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.codigoEmpresa}" title="#{bundle.ViewPrepagoControlConsumoTitle_codigoEmpresa}"/>
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_codigoEstacion}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.codigoEstacion}" title="#{bundle.ViewPrepagoControlConsumoTitle_codigoEstacion}"/>
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_codigoPrepago}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.codigoPrepago}" title="#{bundle.ViewPrepagoControlConsumoTitle_codigoPrepago}"/>
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_noPrepago}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.noPrepago}" title="#{bundle.ViewPrepagoControlConsumoTitle_noPrepago}"/>
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_usuario}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.usuario}" title="#{bundle.ViewPrepagoControlConsumoTitle_usuario}"/>
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_fecha}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.fecha}" title="#{bundle.ViewPrepagoControlConsumoTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPrepagoControlConsumoLabel_digitado}"/>
+                        <h:outputText value="#{prepagoControlConsumoController.selected.digitado}" title="#{bundle.ViewPrepagoControlConsumoTitle_digitado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PrepagoControlConsumoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

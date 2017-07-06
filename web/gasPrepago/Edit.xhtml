@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasPrepagoEditDlg" widgetVar="GasPrepagoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGasPrepagoTitle}">
+            <h:form id="GasPrepagoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gasPrepagoController.selected != null}">
+                        <p:outputLabel value="Cliente:" for="gasCliente" />
+                        <p:inputText id="gasCliente" value="#{gasPrepagoController.selected.gasCliente.nombres}"  disabled="true" />                        
+                        <p:outputLabel value="Estacion:" for="gasEstacion" />
+                        <p:inputText id="gasEstacion" value="#{gasPrepagoController.selected.gasEstacion.nombreEstacion}"  disabled="true" />
+                        <p:outputLabel value="#{bundle.EditGasPrepagoLabel_fechaInicio}" for="fechaInicio" />
+                        <p:calendar id="fechaInicio" required="true" pattern="MM/dd/yyyy HH:mm:ss" value="#{gasPrepagoController.selected.fechaInicio}" title="#{bundle.EditGasPrepagoTitle_fechaInicio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditGasPrepagoLabel_fechaFin}" for="fechaFin" />
+                        <p:calendar id="fechaFin"  required="true" pattern="MM/dd/yyyy HH:mm:ss"  value="#{gasPrepagoController.selected.fechaFin}" title="#{bundle.EditGasPrepagoTitle_fechaFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditGasPrepagoLabel_montoPrepagoUsd}" for="montoPrepagoUsd" />
+                        <p:inputText id="montoPrepagoUsd" value="#{gasPrepagoController.selected.montoPrepagoUsd}"  disabled="true"  title="#{bundle.EditGasPrepagoTitle_montoPrepagoUsd}"  required="true" />                        
+                        <p:outputLabel value="#{bundle.EditGasPrepagoLabel_totalPrepagos}" for="totalPrepagos" />
+                        <p:inputText id="totalPrepagos" value="#{gasPrepagoController.selected.totalPrepagos}"  disabled="true" title="#{bundle.EditGasPrepagoTitle_totalPrepagos}"  required="true" />                        
+                        <p:outputLabel value="#{bundle.EditGasPrepagoLabel_numeroInicial}" for="numeroInicial" />
+                        <p:inputText id="numeroInicial" value="#{gasPrepagoController.selected.numeroInicial}" disabled="true" title="#{bundle.EditGasPrepagoTitle_numeroInicial}"  />
+                        <p:outputLabel value="#{bundle.EditGasPrepagoLabel_numeroFinal}" for="numeroFinal" />
+                        <p:inputText id="numeroFinal" value="#{gasPrepagoController.selected.numeroFinal}"  disabled="true" title="#{bundle.EditGasPrepagoTitle_numeroInicial}" />
+                       
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasPrepagoController.update}" value="#{bundle.Save}" update="display,:GasPrepagoListForm:datalist,:growl" onclick="GasPrepagoEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasPrepagoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
