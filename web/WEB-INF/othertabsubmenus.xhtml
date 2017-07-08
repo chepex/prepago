@@ -27,7 +27,56 @@
             <span class=" Fs16 White"><b>Usuario :</b></span><br/><span  class=" Fs16 White"> #{loginBean.username} </span><br/><br/>
             <span class=" Fs16 White"><b>Ultimo Acceso :</b></span><br/><span  class=" Fs16 White"> #{loginBean.gascatUsuario.ultimoAcceso.toLocaleString()} </span><br/><br/>
             <span class=" Fs16 White"><b>Rol :</b></span><br/><span  class=" Fs16 White"> #{loginBean.gascatUsuario.codigoTiporol.descripcion} </span><br/><br/>
+            
+             <p:commandButton id="passButton" icon="fa fa-user-secret White"   value="Cambiar contraseña" actionListener="#{gasClienteController.prepareCreate}"  oncomplete="PF('passDialog').show()"/>
+             <p:commandButton id="datosButton" icon="fa fa-user-secret White"   value="Datos Usuario" update=":formUsuario" actionListener="#{gascatUsuarioController.prepareCreateUsuario()}"  oncomplete="PF('datosDialog').show()"/>
         </h:form>
+            <p:dialog id="datosDlg" widgetVar="datosDialog" modal="true" resizable="false" appendTo="@(body)"  >                
+                <h:form id="formUsuario">
+                    <p:panel header="Datos usuario" rendered="#{gascatUsuarioController.selected!=null}"  >
+                           <p:panelGrid columns="2">                       
+                            <p:outputLabel value="Nombre"/>                           
+                            <p:inputText id="nombre" value="#{gascatUsuarioController.selected.nombre}"/>
+                            <p:outputLabel value="Apellido"/>                           
+                            <p:inputText id="apellido" value="#{gascatUsuarioController.selected.apellido }"/>
+                            <p:outputLabel value="Correo"/>                           
+                            <p:inputText id="correo" value="#{gascatUsuarioController.selected.correo }"/>                       
+                            <p:outputLabel value="Telefono"/>                           
+                            <p:inputText id="telefono" value="#{gascatUsuarioController.selected.telefono}"/>                       
+                        </p:panelGrid>
+                    </p:panel>
+                     <div class="Container40 Responsive40">
+                       </div>
+                          <div class="Container20 Responsive20">
+                              <p:commandButton id="guardar" icon="fa fa-save White"   value="Actualizar" actionListener="#{gascatUsuarioController.update()}"  update=":growl" />
+                       </div>
+                   
+                </h:form>
+            </p:dialog>
+           <p:dialog id="passDlg" widgetVar="passDialog" modal="true" resizable="false" appendTo="@(body)"  >
+               <h:form>
+               <p:panel header="Cambiar contraseña">
+                   
+                        <p:panelGrid columns="2">                       
+                            <p:outputLabel value="Password Anterior"/>                           
+                            <p:inputText id="panterior" value=""/>
+                            <p:outputLabel value="Password Nuevo"/>                           
+                            <p:inputText id="pnuevo" value=""/>
+                            <p:outputLabel value="Password Nuevo Confirmacion"/>                           
+                            <p:inputText id="pnuevo2" value=""/>                       
+                        </p:panelGrid>
+                      
+                       
+                   
+                   
+               </p:panel>
+                     <div class="Container70 Responsive70">
+                       </div>
+                          <div class="Container20 Responsive20">
+                            <p:commandButton id="actualizar" icon="fa fa-save White"   value="Actualizar" actionListener="#{gasClienteController.prepareCreate}"  update=":growl" />
+                       </div>
+                   </h:form>
+           </p:dialog>
     </div>
     
     <ul class="layout-tab-submenu" id="layout-messages">

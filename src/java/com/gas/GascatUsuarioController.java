@@ -17,6 +17,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 
 @Named("gascatUsuarioController")
 @SessionScoped
@@ -56,6 +57,21 @@ public class GascatUsuarioController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public GascatUsuario prepareCreateUsuario() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
+        GasEstacion ge =  (GasEstacion) session.getAttribute("SSESTACION" );   
+        String usuario = String.valueOf(session.getAttribute("SSUSUARIO" ));
+          List <GascatUsuario> lu= this.ejbFacade.findByUsuarioEstacion(usuario,  ge);
+          if(!lu.isEmpty()){
+          selected = lu.get(0);
+          }else{
+              selected = new GascatUsuario();
+          }
+        
+        initializeEmbeddableKey();
+        return selected;
+    }    
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GascatUsuarioCreated"));

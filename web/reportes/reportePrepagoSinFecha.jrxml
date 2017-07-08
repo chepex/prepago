@@ -23,14 +23,19 @@ TO_CHAR(SYSDATE, 'DD') DIA,
 TO_CHAR(SYSDATE, 'MM') MES,
 TO_CHAR(SYSDATE, 'YYYY') ANIO,
 P.CODIGO_PREPAGO ,
- UPPER( expresar_en_letras.numero_a_letras(D.VALOR_PREPAGO)) ||' 00/100 DOLARES' VLETRA
- FROM GAS_PREPAGO P, GAS_PREPAGO_DETALLE D, CLIENTE C
+ UPPER( expresar_en_letras.numero_a_letras(D.VALOR_PREPAGO)) ||' 00/100 DOLARES' VLETRA,
+S.DESCRIPCION,
+G.NOMBRE_ESTACION
+ FROM GAS_PREPAGO P, GAS_PREPAGO_DETALLE D, CLIENTE C, GAS_SABOR_COMBUSTIBLE S, GAS_ESTACION G
 WHERE P.CODIGO_EMPRESA = D.CODIGO_EMPRESA
 AND P.CODIGO_ESTACION = D.CODIGO_ESTACION
 AND P.CODIGO_PREPAGO = D.CODIGO_PREPAGO
 AND P.CODIGO_PREPAGO = $P{VCODIGO}
 AND IMPRESO  = 'N' 
 AND C.ID_CLIENTE = P.ID_CLIENTE
+AND D.ID_SABOR = S.ID_SABOR
+AND P.CODIGO_EMPRESA = G.CODIGO_EMPRESA
+AND P.CODIGO_ESTACION = G.CODIGO_ESTACION
 ORDER BY D.NO_PREPAGO 
 )
 WHERE ROWNUM< $P{VCANT}]]>
@@ -48,6 +53,8 @@ WHERE ROWNUM< $P{VCANT}]]>
 	<field name="ANIO" class="java.lang.String"/>
 	<field name="CODIGO_PREPAGO" class="java.math.BigDecimal"/>
 	<field name="VLETRA" class="java.lang.String"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="NOMBRE_ESTACION" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -109,19 +116,33 @@ WHERE ROWNUM< $P{VCANT}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VALOR_PREPAGO}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="92" y="258" width="64" height="15" uuid="d0199943-9af8-429a-8661-d7253b19cf18"/>
-				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Gasolina]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="56" y="146" width="184" height="15" uuid="41bfeb6c-0b7e-4b56-9ad3-eb668ab39e62"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VLETRA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="271" width="100" height="20" uuid="465ea4b3-21d8-41e5-8721-9e361e949c06"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="27" y="342" width="59" height="15" uuid="d0d42e6b-24a4-4b9f-a0b7-066d53da711c"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Estacion:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="342" width="181" height="15" uuid="c07bf961-55f6-4479-b895-87b3c53ed7f2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_ESTACION}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

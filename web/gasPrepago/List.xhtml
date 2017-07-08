@@ -172,13 +172,13 @@
                                 >
                                 <p:ajax event="rowSelect"   update="@form"/>
                                 <p:ajax event="rowUnselect" update="@form"/>
-                        <p:column>
+                                <p:column  sortBy="#{item.gasPrepagoDetallePK.noPrepago}" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGasPrepagoDetalleTitle_gasPrepagoDetallePK_noPrepago}"/>
                             </f:facet>
                             <h:outputText value="#{item.gasPrepagoDetallePK.noPrepago}"/>
                         </p:column>
-                        <p:column>
+                        <p:column  sortBy="#{item.valorPrepago}" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGasPrepagoDetalleTitle_valorPrepago}"/>
                             </f:facet>
@@ -190,13 +190,19 @@
                             </f:facet>
                             <h:outputText value="#{item.estado eq 'C'? 'Cancelado': item.estado  eq 'P' ? 'Pendiente' : item.estado  eq 'B' ? 'Bloqueado':   item.estado  eq 'A' ? 'Anulado' : null }" />
                         </p:column>                        
-                                               
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Autorizacion"/>
+                                <h:outputText value="Fecha Uso"/>
                             </f:facet>
-                            <h:outputText value="#{item.autorizacion}"/>
-                        </p:column>                                                        
+                            
+                            <h:outputText value="#{item.fechaUso}">
+                                <f:convertDateTime pattern="dd-MM-YYYY HH:mm:ss" timeZone="America/El_Salvador" type="date" />
+                            </h:outputText>
+
+                            
+                        </p:column>                                     
+                                               
+                        
                          
                     </p:dataTable>
                     </p:panel>

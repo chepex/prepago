@@ -30,6 +30,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 /**
  *
  * @author mmixco
@@ -312,6 +313,11 @@ public class LoginBean  implements Serializable {
         System.out.println("Memoria libre antes de limpieza: "+ garbage.freeMemory() );
     } 
     
+    
+    public String goLogin() throws IOException  {
+        FacesContext.getCurrentInstance().getExternalContext().redirect( "login.xhtml");
+       return "ok";
+    }
     public boolean validarSesion() throws IOException{
        
         boolean msg = false;
@@ -352,6 +358,10 @@ public class LoginBean  implements Serializable {
          }
          */
          
+         if(msg==false){
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('dlg2').show();");
+         }
         return msg;
     }
     

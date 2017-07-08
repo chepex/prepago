@@ -23,6 +23,9 @@
                 
                <p:menuitem id="om_prepago_historico" value="Historial" icon=" fa icon-calendar133  " actionListener="#{gasPrepagoDetalleController.redirect('List')}"  /> 
             </p:submenu>
+            <p:submenu id="om_menuIT" label="IT Tool" expanded="true" >
+                <p:menuitem id="om_upload_xls" value="Cargar XLS" icon=" fa  fa-file-excel-o "  outcome="/it/cargaXLS"  rendered="#{loginBean.rol eq 'ADM'}"   />  
+            </p:submenu>
         </po:menu>
     </h:form>
 

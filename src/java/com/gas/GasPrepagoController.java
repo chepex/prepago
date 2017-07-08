@@ -48,6 +48,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import javax.swing.JOptionPane;
+import jxl.read.biff.BiffException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -57,6 +58,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
+import org.primefaces.event.FileUploadEvent;
 
 
 @Named("gasPrepagoController")
@@ -78,6 +80,9 @@ public class GasPrepagoController implements Serializable {
     private com.gasEjb.EmailBeanGmail emailBeanGmail;    
     @EJB
     private mmx mmx;   
+    @EJB
+    private XLS_read ejbXLS2;       
+    
     
       
        
@@ -99,6 +104,7 @@ public class GasPrepagoController implements Serializable {
     private Date now;
     private GasSaborCombustible gscombustible;
     private int cantidaImprimir;
+    
     
 //    private GascatCuentaBanco cb;
     
@@ -336,7 +342,7 @@ public class GasPrepagoController implements Serializable {
             selected.setCodigoBanco(this.selected.getGascatBanco().getCodigoBanco());
             selected.setCodigoCuenta( cuenta);
            
-            String msg = this.gasPrepago.generarPrepago(selected);
+            String msg = this.gasPrepago.generarPrepago(selected, this.gscombustible);
           
             if(msg.equals("OK")){
               enviarCorreo();
@@ -777,7 +783,7 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
                 System.out.println("----->--->1");
                 System.out.println("----->--->1");
                 BigDecimal codigo = new BigDecimal(selected.getGasPrepagoPK().getCodigoPrepago()); 
-                 BigDecimal cant = new BigDecimal("100000"); 
+                BigDecimal cant = new BigDecimal("100000"); 
                 m.put("VCODIGO",codigo  ); 
                 m.put("VCANT",cant  ); 
                 reporte(ruta, m);
@@ -999,5 +1005,19 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
          System.out.println("Actualizar Impresos");   
     
     }
+    
+    
+  public void upload(FileUploadEvent event) throws IOException, BiffException  {      
+     
+        ReadXls a = new ReadXls();
+        String destination = "/opt/lib/"+event.getFile().getFileName();
+        a.copyFile(event.getFile().getFileName(), event.getFile().getInputstream()); 
+        String mensaje ="";        
+             
+            System.out.println("aqui1");
+            mensaje=ejbXLS2.read(destination);  
+     
+        JsfUtil.addSuccessMessage( mensaje);      
+    }      
     
 }
