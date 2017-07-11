@@ -82,6 +82,10 @@ public class GasPrepagoController implements Serializable {
     private mmx mmx;   
     @EJB
     private XLS_read ejbXLS2;       
+    @EJB
+    private com.gas.GascatUsuarioFacade gascatUsuarioFacade;    
+    
+    private List<GasPrepago> pendientes = new ArrayList<GasPrepago>();
     
     
       
@@ -115,13 +119,22 @@ public class GasPrepagoController implements Serializable {
 
     @PostConstruct
     protected void init(){
-        System.out.println("limpiando ");
-        System.out.println("limpiando ");
-        System.out.println("limpiando ");
+ 
         this.selected = null;
+        pendientes = this.ejbFacade.findByPendiente();
 
     }    
 
+    public List<GasPrepago> getPendientes() {
+        return pendientes;
+    }
+
+    public void setPendientes(List<GasPrepago> pendientes) {
+        this.pendientes = pendientes;
+    }
+
+    
+    
     public int getCantidaImprimir() {
         return cantidaImprimir;
     }
@@ -300,6 +313,10 @@ public class GasPrepagoController implements Serializable {
             selected.setNoRegistro(selected.getCliente().getNoRegistro());
             selected.setCliente(cliente);
             selected.setEstado("A");
+            selected.setImpreso("N");
+            if(selected.getGasEstacion().getGasEstacionPK().getCodigoEstacion().equals("0000")){
+                selected.setTodas(true);
+            }
             //selected.setValorDePrepago(selected.getMontoPrepagoUsd().divide(selected.getTotalPrepagos()));
             //selected.setSaldoPrepagoUsd(selected.getMontoPrepagoUsd());
             selected.setFechaCreacion(new Date());
@@ -336,16 +353,19 @@ public class GasPrepagoController implements Serializable {
             selected.setNoRegistro(selected.getCliente().getNoRegistro());
             selected.setCliente(cliente);
             selected.setEstado("A");
+            selected.setImpreso("N");
             selected.setValorDePrepago(selected.getMontoPrepagoUsd().divide(selected.getTotalPrepagos()));
             selected.setSaldoPrepagoUsd(selected.getMontoPrepagoUsd());
             selected.setFechaCreacion(new Date());
             selected.setCodigoBanco(this.selected.getGascatBanco().getCodigoBanco());
-            selected.setCodigoCuenta( cuenta);
-           
+            selected.setCodigoCuenta( cuenta);  
+            if(selected.getGasEstacion().getGasEstacionPK().getCodigoEstacion().equals("0000")){
+                selected.setTodas(true);
+            }
             String msg = this.gasPrepago.generarPrepago(selected, this.gscombustible);
-          
+            
             if(msg.equals("OK")){
-              enviarCorreo();
+            enviarCorreo();
             //  gasPrepago.enviarEncabezado(selected);
                 JsfUtil.addSuccessMessage("Prepago creado correctamente");
             }else{
@@ -535,6 +555,16 @@ public class GasPrepagoController implements Serializable {
         }
         
     }    
+    
+    public void consultaAuorizacion() {
+     
+        pendientes = this.ejbFacade.findByPendiente();
+        if(pendientes.isEmpty()){
+            JsfUtil.addErrorMessage("error", "no se encontraron datos");
+        }     
+        
+        
+    }     
 
 
     public void consultarEspecial() {
@@ -630,6 +660,8 @@ public class GasPrepagoController implements Serializable {
     
     
     public void anular() {
+        
+            System.out.println("---->anulando");
             String msg = gasPrepago.anular(selected);
             if(msg.equals("OK")){
               
@@ -647,8 +679,8 @@ public class GasPrepagoController implements Serializable {
                 
                   msg = gasPrepago.enviarEncabezado(selected);
                   
-                  System.out.println("Mensaje envio encabezado---------->"+msg);
-                  if(msg.equals("OK")){
+                  /*System.out.println("Mensaje envio encabezado---------->"+msg);
+                  if(msg.equals("OK")){*/
                         selected.setAutorizacion("OK");               
                         String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
                         selected.setFechaAutorizado(new Date(fecha) );
@@ -656,9 +688,9 @@ public class GasPrepagoController implements Serializable {
                         selected.setHoraAutorizado(trim(hora));
                         ejbFacade.edit(selected);
                         JsfUtil.addSuccessMessage("Se ha autorizado el prepago Numero: "+selected.getGasPrepagoPK().getCodigoPrepago() );
-                  }else{
+                  /*}else{
                     JsfUtil.addErrorMessage("Error","No se tuvo coneccion con 1 o mas estaciones, favor probar mas tarde");
-                  }
+                  }*/
                   
             }
             else{
@@ -722,9 +754,12 @@ public class GasPrepagoController implements Serializable {
                 BigDecimal codigo = new BigDecimal(selected.getGasPrepagoPK().getCodigoPrepago()); 
                 m.put("VCODIGO",codigo  ); 
                 reporte(ruta, m);
+              
             }
             
-      
+            
+                selected.setImpreso("S");
+                this.ejbFacade.edit(selected);
             
         return "Ok";
     }    
@@ -787,7 +822,12 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
                 m.put("VCODIGO",codigo  ); 
                 m.put("VCANT",cant  ); 
                 reporte(ruta, m);
+                
+                selected.setImpreso("S");
+                this.ejbFacade.edit(selected);
             }
+            
+            
             
       
             
@@ -808,6 +848,9 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
                 m.put("VCODIGO",codigo  ); 
                 m.put("VCANT",cant  ); 
                 reporte(ruta, m);
+                
+                selected.setImpreso("S");
+                this.ejbFacade.edit(selected);
             }
             
       
@@ -838,6 +881,16 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
     
     
     public void enviarCorreo() throws MessagingException{
+        List<GascatUsuario> lgu = gascatUsuarioFacade.findByRol("GG");
+        String correo  = "";
+        if(!lgu.isEmpty()){
+            GascatUsuario usuario= lgu.get(0);
+            correo = usuario.getCorreo();
+        }
+        
+        if(correo.isEmpty() || correo ==null){
+             correo = "mmixco7@gmail.com";
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GasPrepagoCreated"));
 
         String cuerpo = "";
@@ -854,8 +907,11 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
                 + "<tr><td><b>Cuenta</b></td><td>     "+cuenta+"</td></tr>"
                 + "<tr><td><b>Referencia</b></td><td>     "+selected.getNumRemesa()+"</td></tr>"
                 + "<tr><td><b>Valor</b></td><td>     $"+selected.getValor()+"</td></tr>"
-                + "</table>";                
-        emailBeanGmail.enviarTmp2("mmixco7@gmail.com", "Nuevo prepago creado ", cuerpo) ;
+                + "</table>";          
+        
+        emailBeanGmail.enviarTmp2(correo, "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
+        
+        emailBeanGmail.enviarTmp2("mmixco7@gmail.com", "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
     
     }
     

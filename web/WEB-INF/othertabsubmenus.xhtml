@@ -34,7 +34,7 @@
             <p:dialog id="datosDlg" widgetVar="datosDialog" modal="true" resizable="false" appendTo="@(body)"  >                
                 <h:form id="formUsuario">
                     <p:panel header="Datos usuario" rendered="#{gascatUsuarioController.selected!=null}"  >
-                           <p:panelGrid columns="2">                       
+                         <p:panelGrid columns="2">                       
                             <p:outputLabel value="Nombre"/>                           
                             <p:inputText id="nombre" value="#{gascatUsuarioController.selected.nombre}"/>
                             <p:outputLabel value="Apellido"/>                           
@@ -48,7 +48,7 @@
                      <div class="Container40 Responsive40">
                        </div>
                           <div class="Container20 Responsive20">
-                              <p:commandButton id="guardar" icon="fa fa-save White"   value="Actualizar" actionListener="#{gascatUsuarioController.update()}"  update=":growl" />
+                              <p:commandButton id="guardar" icon="fa fa-save White"   value="Actualizar" actionListener="#{gascatUsuarioController.update()}"  update=":growl"  onclick="datosDialog.hide()"  />
                        </div>
                    
                 </h:form>
@@ -59,11 +59,11 @@
                    
                         <p:panelGrid columns="2">                       
                             <p:outputLabel value="Password Anterior"/>                           
-                            <p:inputText id="panterior" value=""/>
+                            <p:inputText id="panterior" value="#{gascatUsuarioController.pass}"/>
                             <p:outputLabel value="Password Nuevo"/>                           
-                            <p:inputText id="pnuevo" value=""/>
+                            <p:inputText id="pnuevo" value="#{gascatUsuarioController.pass1}"/>
                             <p:outputLabel value="Password Nuevo Confirmacion"/>                           
-                            <p:inputText id="pnuevo2" value=""/>                       
+                            <p:inputText id="pnuevo2" value="#{gascatUsuarioController.pass2}"/>                       
                         </p:panelGrid>
                       
                        
@@ -73,7 +73,7 @@
                      <div class="Container70 Responsive70">
                        </div>
                           <div class="Container20 Responsive20">
-                            <p:commandButton id="actualizar" icon="fa fa-save White"   value="Actualizar" actionListener="#{gasClienteController.prepareCreate}"  update=":growl" />
+                              <p:commandButton id="actualizar" icon="fa fa-save White"   value="Actualizar" actionListener="#{gascatUsuarioController.cambiarPass()}" onclick="passDialog.hide()" update=":growl" />
                        </div>
                    </h:form>
            </p:dialog>

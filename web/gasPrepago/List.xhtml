@@ -110,7 +110,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="Autorizacion"/>
                                 </f:facet>
-                                <h:outputText value="#{item.autorizacion}"/>
+                               
+                                <p:button icon="fa White #{item.autorizacion eq 'OK' ? 'fa-check' :'fa fa-close'   }  "></p:button>
+                                
                             </p:column>
 
                             <p:column>
@@ -129,32 +131,31 @@
                             <f:facet name="footer">   
                                 <p:commandButton id="createButton" icon="fa  fa-plus White"   value="Crear" disabled="#{empty gasPrepagoController.cliente}" actionListener="#{gasPrepagoController.prepareCreate}" update=":GasPrepagoCreateForm" oncomplete="PF('GasPrepagoCreateDialog').show()"/>                                
                                 <p:commandButton id="createEspecialButton" icon="fa  fa-plus-square White"   value="Crear Especial" disabled="#{empty gasPrepagoController.cliente}" actionListener="#{gasPrepagoController.prepareCreate}" update=":GasPrepagoCreateEspecialForm" oncomplete="PF('GasPrepagoCreateEspecialDialog').show()"/>                                
-                                <p:commandButton id="autorizar"   icon="fa fa-check-square  White" value="Autorizar" update=":growl @form"  actionListener="#{gasPrepagoController.autorizar()}" disabled="#{gasPrepagoController.selected.autorizacion!=null or empty gasPrepagoController.selected}"    >
-                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                </p:commandButton> 
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                </p:confirmDialog>
+                             
                                 <p:commandButton id="btnCartaCompromiso"   icon="fa  icon-letter120  White" 
                                                  value="Carta Compromiso" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.cartaCompromiso()}" 
                                                         ajax="false" update="@form :growl" />                                                                   
                                 <p:commandButton id="btnCartaEntrega"   icon="fa  icon-letter120  White" 
                                                  value="Carta Entrega" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.cartaEntrega()}" 
                                                         ajax="false" update="@form :growl" />                                   
-                                <p:commandButton id="btnprint"   icon="fa  fa-print White" 
-                                               value="Reporte" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.generarReporte}" 
+                                <p:commandButton id="btnprint"    icon="fa  fa-print White" 
+                                                 value="Reporte" disabled="#{empty gasPrepagoController.selected or gasPrepagoController.selected.impreso eq 'S'}" actionListener="#{gasPrepagoController.generarReporte}" 
                                                         ajax="false" update="@form :growl" />                                   
                                 <p:commandButton id="btnprint3"   icon="fa  fa-print White" 
-                                               value="Reporte Sin Vigencia" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.generarReporteASinVigencia}" 
+                                               value="Reporte Sin Vigencia" disabled="#{empty gasPrepagoController.selected or gasPrepagoController.selected.impreso eq 'S'}" actionListener="#{gasPrepagoController.generarReporteASinVigencia}" 
                                                         ajax="false" update="@form :growl" />                                                                   
                                 <p:commandButton id="btnprint2"   icon="fa  fa-print White" 
-                                               value="Reporte2" disabled="#{empty gasPrepagoController.selected}" actionListener="#{gasPrepagoController.generarReporte2}" 
+                                               value="Reporte2" disabled="#{empty gasPrepagoController.selected or gasPrepagoController.selected.impreso eq 'S'}" actionListener="#{gasPrepagoController.generarReporte2}" 
                                                         ajax="false" update="@form :growl" />                                                                 
-                                <p:commandButton id="anular"  styleClass="RedButton"  icon="fa  fa-bomb   White" value="Anular" update=":growl @form"  actionListener="#{gasPrepagoController.anular()}" disabled="#{ empty gasPrepagoController.selected}"    >
+                                <p:commandButton id="anular"  styleClass="RedButton"  icon="fa  fa-bomb   White" value="Anular" update=":growl @form"  actionListener="#{gasPrepagoController.anular}" disabled="#{ empty gasPrepagoController.selected}"    >
+                                    
                                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                    
                                 </p:commandButton>
-                                
+                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
                                 
  
                             </f:facet>

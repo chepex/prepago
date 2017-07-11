@@ -2,6 +2,7 @@ package com.gas;
 
 import com.gas.util.JsfUtil;
 import com.gas.util.JsfUtil.PersistAction;
+import com.gasEjb.GasUsuario;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -25,11 +26,44 @@ public class GascatUsuarioController implements Serializable {
 
     @EJB
     private GascatUsuarioFacade ejbFacade;
+    @EJB
+    private GasUsuario gasUsuario;    
+    private String pass1;
+    private String pass2;        
+    private String pass;    
+    
     private List<GascatUsuario> items = null;
     private GascatUsuario selected;
 
     public GascatUsuarioController() {
     }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+        
+
+    public String getPass1() {
+        return pass1;
+    }
+
+    public void setPass1(String pass1) {
+        this.pass1 = pass1;
+    }
+
+    public String getPass2() {
+        return pass2;
+    }
+
+    public void setPass2(String pass2) {
+        this.pass2 = pass2;
+    }
+
+
 
     public GascatUsuario getSelected() {
         return selected;
@@ -64,12 +98,11 @@ public class GascatUsuarioController implements Serializable {
         String usuario = String.valueOf(session.getAttribute("SSUSUARIO" ));
           List <GascatUsuario> lu= this.ejbFacade.findByUsuarioEstacion(usuario,  ge);
           if(!lu.isEmpty()){
-          selected = lu.get(0);
+            selected = lu.get(0);
           }else{
-              selected = new GascatUsuario();
-          }
-        
-        initializeEmbeddableKey();
+            selected = new GascatUsuario();
+          }        
+        //initializeEmbeddableKey();
         return selected;
     }    
 
@@ -81,6 +114,7 @@ public class GascatUsuarioController implements Serializable {
     }
 
     public void update() {
+        selected.setCorreo(selected.getCorreo().toUpperCase());        
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GascatUsuarioUpdated"));
     }
 
@@ -203,5 +237,12 @@ public class GascatUsuarioController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("../gascatUsuario/"+url+".xhtml");
         return "ok";
     }     
+    
+    
+    public String cambiarPass(){
+        String msg = gasUsuario.actualizarPass(   pass,  pass1 ,  pass2 );
+        JsfUtil.addSuccessMessage(msg);
+        return "ok";
+    }
 
 }
