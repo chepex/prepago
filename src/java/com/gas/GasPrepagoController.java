@@ -289,12 +289,18 @@ public class GasPrepagoController implements Serializable {
     }
     
     public GasPrepago prepareCreate() {
+        
         selected = new GasPrepago();      
         BigDecimal rangoI = this.ejbFacade.findByMaxRango();
         selected.setNumeroInicial(rangoI.toBigInteger());
         lcuenta = null;
         initializeEmbeddableKey();
         selected.setCliente(cliente);
+        
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
+        String usuario = String.valueOf(session.getAttribute("SSUSUARIO" ));
+        selected.setUsernameCreado(usuario);
+        
         lprepagodetalle = null;
         this.vcantidad= null;
         this.vmonto = null;
@@ -621,6 +627,7 @@ public class GasPrepagoController implements Serializable {
     
     public void consume( GasPrepagoDetalle gpd ){
      HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
+     
           List<GasPrepago> lp =  this.ejbFacade.findByVigencia(gpd.getGasPrepagoDetallePK().getCodigoPrepago());        
                         if(lp.isEmpty()){
                             JsfUtil.addErrorMessage("Error", "Prepago vencido");            
@@ -692,6 +699,8 @@ public class GasPrepagoController implements Serializable {
                     JsfUtil.addErrorMessage("Error","No se tuvo coneccion con 1 o mas estaciones, favor probar mas tarde");
                   }*/
                   
+                  
+                    //enviarCorreoAutorizado();
             }
             else{
                 JsfUtil.addErrorMessage("Error","No fue posible realizar la autorizacion");
@@ -879,6 +888,11 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
         return "OK";
     }
     
+    
+    public void enviarCorreoAutorizado() throws MessagingException{
+        
+    }
+ 
     
     public void enviarCorreo() throws MessagingException{
         List<GascatUsuario> lgu = gascatUsuarioFacade.findByRol("GG");
