@@ -692,7 +692,9 @@ public class GasPrepagoController implements Serializable {
                   
                   /*System.out.println("Mensaje envio encabezado---------->"+msg);
                   if(msg.equals("OK")){*/
+ 
                         selected.setUsernameAutorizado(usuario);
+ 
                         selected.setAutorizacion("OK");               
                         String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
                         selected.setFechaAutorizado(new Date(fecha) );
@@ -704,8 +706,10 @@ public class GasPrepagoController implements Serializable {
                     JsfUtil.addErrorMessage("Error","No se tuvo coneccion con 1 o mas estaciones, favor probar mas tarde");
                   }*/
                   
+
                  
                     enviarCorreoAutorizado( selected.getGascatUsuario());
+ 
             }
             else{
                 JsfUtil.addErrorMessage("Error","No fue posible realizar la autorizacion");
@@ -894,6 +898,7 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
     }
     
     
+ 
     public void enviarCorreoAutorizado(GascatUsuario usuario) throws MessagingException{
          
          String   correo = usuario.getCorreo();
@@ -919,7 +924,7 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
         emailBeanGmail.enviarTmp2("mmixco7@gmail.com"," Prepago Autorizado"  , cuerpo) ;
     
         
-        
+ 
     }
  
     
@@ -952,7 +957,9 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
                 + "<tr><td><b>Valor</b></td><td>     $"+selected.getValor()+"</td></tr>"
                 + "</table>";          
         
-       // emailBeanGmail.enviarTmp2(correo, "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
+
+        emailBeanGmail.enviarTmp2(correo, "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
+
         
         emailBeanGmail.enviarTmp2("mmixco7@gmail.com", "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
     
