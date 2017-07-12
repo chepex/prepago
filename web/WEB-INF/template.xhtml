@@ -49,13 +49,29 @@
                 <!-- PORTLETS COVER -->
                 <div id="layout-portlets-cover">
                      <p:growl id="growl" showDetail="true" sticky="true" /> 
-                     
+                      <h:form>  
+                            
+                             
+                        
+                              <p:dialog header="Session Finalizada" widgetVar="dlg2" modal="true" height="150">
+                                  <p:panel  >
+                                      Su session ha finalizado <br/>
+                                      favor iniciar session<br/>
+                                      <br/>
+                                       <br/>
+                                      <h:button value="Iniciar Session" outcome="/login"  />
+                                  </p:panel>
+                                
+                            </p:dialog>   
+                              
+                     </h:form>
                          
                      <p:panel  rendered="#{loginBean.validarSesion()}">
-                         <ui:insert name="content" >
+                         <ui:insert name="content" id="contenido" >
                             Template  
                         </ui:insert>
                      </p:panel>
+                  
                         
                      <p:panel  rendered="#{loginBean.validarSesion()==false}">
                         

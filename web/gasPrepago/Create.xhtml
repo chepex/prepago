@@ -27,8 +27,17 @@
                                        itemLabel="#{gasEstacionItem.nombreEstacion}"
                                        itemValue="#{gasEstacionItem}"/>
                     </p:selectOneMenu>
-                    <h:outputText value="Todas: " />
-                    <p:selectBooleanCheckbox value="#{gasPrepagoController.selected.todas}" />
+                    
+                    
+                    
+                     <p:outputLabel value="Tipo Producto" /> 
+                                <p:selectOneMenu id="tproducto"   value="#{gasPrepagoController.gscombustible}" required="true" >
+                                <f:selectItem itemLabel="Selecione un item" itemValue="" />
+                                <f:selectItems value="#{gasSaborCombustibleController.itemsAvailableSelectOne}"
+                                               var="gasSaborCombustibleItem"
+                                               itemLabel="#{gasSaborCombustibleItem.descripcion}"
+                                               itemValue="#{gasSaborCombustibleItem}"/>                                
+                    </p:selectOneMenu>
                     
                     </p:panelGrid>
                     <br/><b>Parametros</b>

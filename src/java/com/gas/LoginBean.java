@@ -26,10 +26,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
  
 
-import javax.servlet.http.Cookie; 
+ 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+ 
 import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 /**
  *
  * @author mmixco
@@ -205,6 +206,8 @@ public class LoginBean  implements Serializable {
         
         if(rol.equals("ADM")){
             FacesContext.getCurrentInstance().getExternalContext().redirect("gasPrepago/List.xhtml");
+        }else if(rol.equals("GG")){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("gasPrepago/ListAutorizacion.xhtml");
         }else{
             FacesContext.getCurrentInstance().getExternalContext().redirect("gasPrepago/Consulta.xhtml");
         }        
@@ -312,11 +315,16 @@ public class LoginBean  implements Serializable {
         System.out.println("Memoria libre antes de limpieza: "+ garbage.freeMemory() );
     } 
     
+    
+    public String goLogin() throws IOException  {
+        FacesContext.getCurrentInstance().getExternalContext().redirect( "login.xhtml");
+       return "ok";
+    }
     public boolean validarSesion() throws IOException{
        
         boolean msg = false;
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
-        /*    try{
+         try{
                 String usuario = String.valueOf(session.getAttribute("SSUSUARIO" ));
                 if(usuario!=null && usuario!="null"){
                     if(usuario.length()>0){
@@ -327,11 +335,11 @@ public class LoginBean  implements Serializable {
                 }
             }catch(Exception ex){
                 System.out.println("error");
-            }*/
+            }
             
         //System.out.println("tok: ---->"+token);
        // System.out.println("token: ---->"+sb_token.getToken());
-            token = sb_token.getToken();
+          /*  token = sb_token.getToken();
          if(msg==false && this.token!=null){
             List<GascatUsuario> luser = gascatUsuarioFacade.findByToken(token);
            
@@ -341,9 +349,10 @@ public class LoginBean  implements Serializable {
                     this.setGascatUsuario(luser.get(0));
                     this.setRol(luser.get(0).getCodigoTiporol().getCodigoTiporol());
                     msg = true;
+                    
                 }
          }
-        
+        */
          /*
          if(msg==false){
            HttpServletResponse httpResponse = (HttpServletResponse)  FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -352,6 +361,10 @@ public class LoginBean  implements Serializable {
          }
          */
          
+         if(msg==false){
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('dlg2').show();");
+         }
         return msg;
     }
     
