@@ -680,7 +680,11 @@ public class GasPrepagoController implements Serializable {
             
     }  
     
-    public void autorizar() {
+    public void autorizar() throws MessagingException {
+                    
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
+        String usuario = String.valueOf(session.getAttribute("SSUSUARIO" ));
+        System.out.println("usuario Autoriza---:"+usuario);
             String msg = gasPrepago.generarAutorizacion(selected);
             if(msg.equals("OK")){
                 
@@ -688,6 +692,7 @@ public class GasPrepagoController implements Serializable {
                   
                   /*System.out.println("Mensaje envio encabezado---------->"+msg);
                   if(msg.equals("OK")){*/
+                        selected.setUsernameAutorizado(usuario);
                         selected.setAutorizacion("OK");               
                         String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
                         selected.setFechaAutorizado(new Date(fecha) );
@@ -699,8 +704,8 @@ public class GasPrepagoController implements Serializable {
                     JsfUtil.addErrorMessage("Error","No se tuvo coneccion con 1 o mas estaciones, favor probar mas tarde");
                   }*/
                   
-                  
-                    //enviarCorreoAutorizado();
+                 
+                    enviarCorreoAutorizado( selected.getGascatUsuario());
             }
             else{
                 JsfUtil.addErrorMessage("Error","No fue posible realizar la autorizacion");
@@ -889,7 +894,31 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
     }
     
     
-    public void enviarCorreoAutorizado() throws MessagingException{
+    public void enviarCorreoAutorizado(GascatUsuario usuario) throws MessagingException{
+         
+         String   correo = usuario.getCorreo();
+        
+        
+        if(correo.isEmpty() || correo ==null){
+             correo = "mmixco7@gmail.com";
+        }
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GasPrepagoCreated"));
+
+        String cuerpo = "";
+        cuerpo = "<span>Se ha autorizado el prepago #"+selected.getGasPrepagoPK().getCodigoPrepago()+"</span><br/>";
+        cuerpo += "<table>"
+                + "<tr><td><b>Cliente</b></td><td>     "+selected.getCliente().getNombres()+"</td></tr>"
+                + "<tr><td><b>Total</b></td><td>     $"+selected.getMontoPrepagoUsd()+"</td></tr>"
+                + "<tr><td><b>Cantidad</b></td><td>     "+selected.getTotalPrepagos()+"</td></tr>"
+                + "<tr><td><b>Valor</b></td><td>     $"+selected.getValorDePrepago()+"</td></tr>"
+                + "</table>";
+                  
+        
+        emailBeanGmail.enviarTmp2(correo, " Prepago Autorizado"  , cuerpo) ;
+        
+        emailBeanGmail.enviarTmp2("mmixco7@gmail.com"," Prepago Autorizado"  , cuerpo) ;
+    
+        
         
     }
  
@@ -923,7 +952,7 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
                 + "<tr><td><b>Valor</b></td><td>     $"+selected.getValor()+"</td></tr>"
                 + "</table>";          
         
-        emailBeanGmail.enviarTmp2(correo, "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
+       // emailBeanGmail.enviarTmp2(correo, "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
         
         emailBeanGmail.enviarTmp2("mmixco7@gmail.com", "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
     
