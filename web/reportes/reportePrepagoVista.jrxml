@@ -32,7 +32,6 @@ WHERE P.CODIGO_EMPRESA = D.CODIGO_EMPRESA
 AND P.CODIGO_ESTACION = D.CODIGO_ESTACION
 AND P.CODIGO_PREPAGO = D.CODIGO_PREPAGO
 AND P.CODIGO_PREPAGO = $P{VCODIGO}
-AND P.IMPRESO  = 'N' 
 AND C.ID_CLIENTE = P.ID_CLIENTE
 AND D.ID_SABOR = S.ID_SABOR
 AND P.CODIGO_EMPRESA = G.CODIGO_EMPRESA
@@ -136,7 +135,7 @@ WHERE ROWNUM< $P{VCANT}]]>
 				<textElement>
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{VALOR_PREPAGO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="56" y="146" width="184" height="15" uuid="41bfeb6c-0b7e-4b56-9ad3-eb668ab39e62"/>

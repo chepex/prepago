@@ -74,13 +74,6 @@ WHERE ROWNUM< $P{VCANT}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NO_REGISTRO}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="56" y="166" width="136" height="14" uuid="f4db2905-ed2e-42cf-a9b4-f316563068c4"/>
-				<textElement>
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{DIRECCION}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="28" y="294" width="81" height="18" uuid="62c7eb76-0bd7-48fe-a87f-7de9ae93b14e"/>
 				<textElement>

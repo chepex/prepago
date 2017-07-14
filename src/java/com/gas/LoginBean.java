@@ -182,13 +182,13 @@ public class LoginBean  implements Serializable {
         System.out.println("usuario--->"+GC);
         rol = GC.getCodigoTiporol().getCodigoTiporol();
         System.out.println("Rol---->"+rol);
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();        
+        
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);          
         /*pasarGarbageCollector();
         
         request.getSession(true);                
         request.getSession().setMaxInactiveInterval(900);   */
-        session.setAttribute("SSUSUARIO", GC.getGascatUsuarioPK().getUsername() );     
+        session.setAttribute("SSUSUARIO", username );     
         session.setAttribute("SSESTACION", gasEstacion );     
         
         
@@ -237,7 +237,7 @@ public class LoginBean  implements Serializable {
         }
         
         sb_token.setToken(null);
-          
+            session.removeAttribute("SSUSUARIO");
           
     }   
     
@@ -326,15 +326,17 @@ public class LoginBean  implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
          try{
                 String usuario = String.valueOf(session.getAttribute("SSUSUARIO" ));
+                
+                System.out.println("validar session -->"+usuario);
                 if(usuario!=null && usuario!="null"){
                     if(usuario.length()>0){
                         System.out.println("usuario-->"+usuario);
-                        msg = true;
-                         
+                        msg = true;                         
                     }
                 }
             }catch(Exception ex){
                 System.out.println("error");
+                logout() ;
             }
             
         //System.out.println("tok: ---->"+token);
@@ -364,6 +366,7 @@ public class LoginBean  implements Serializable {
          if(msg==false){
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('dlg2').show();");
+            logout() ;
          }
         return msg;
     }

@@ -56,6 +56,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import org.primefaces.event.FileUploadEvent;
@@ -923,7 +924,7 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
         
         emailBeanGmail.enviarTmp2("mmixco7@gmail.com"," Prepago Autorizado"  , cuerpo) ;
     
-        
+          
  
     }
  
@@ -952,7 +953,7 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
         cuerpo += "<table>"
                 + "<tr><td></td><td><b>Remesa</b></td></tr>"
                 + "<tr><td><b>Banco</b></td><td>     "+selected.getGascatBanco().getBanco() +"</td></tr>"
-                + "<tr><td><b>Cuenta</b></td><td>     "+cuenta+"</td></tr>"
+                + "<tr><td><b>Cuenta</b></td><td>     "+selected.getCodigoCuenta()+"</td></tr>"
                 + "<tr><td><b>Referencia</b></td><td>     "+selected.getNumRemesa()+"</td></tr>"
                 + "<tr><td><b>Valor</b></td><td>     $"+selected.getValor()+"</td></tr>"
                 + "</table>";          
@@ -963,6 +964,8 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
         
         emailBeanGmail.enviarTmp2("mmixco7@gmail.com", "Nuevo prepago creado  Cliente:"+selected.getCliente().getNombres()  , cuerpo) ;
     
+        
+         JsfUtil.addSuccessMessage("Correo enviado");    
     }
     
     
@@ -988,8 +991,13 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
             httpserveltresponse.setContentType("application/pdf");
             ServletOutputStream servletOutputStream = httpserveltresponse.getOutputStream();
            
+            
+            
+
             JasperExportManager.exportReportToPdfStream(jasperprint, servletOutputStream);
+          //  JasperExportManager.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, "this.print();");
             FacesContext.getCurrentInstance().responseComplete();
+            
         } catch (NamingException | SQLException | JRException | IOException ex) {
             System.out.println("Error"+ex);
             System.out.println("Error"+ex);
@@ -1095,6 +1103,9 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
                 BigDecimal codigo = new BigDecimal(selected.getGasPrepagoPK().getCodigoPrepago()); 
                 m.put("VCODIGO",codigo  ); 
                 m.put("VCANT",new BigDecimal(cantidaImprimir )); 
+                
+                System.out.println("codigo-->"+codigo);
+                System.out.println("VCANT-->"+cantidaImprimir);
                 reporte(ruta, m);
             }
         System.out.println("aqui--->");
