@@ -681,6 +681,22 @@ public class GasPrepagoController implements Serializable {
             
     }  
     
+    public void desbloquearImpresion (){
+        
+        if (selected!=null){
+            
+            selected.setImpreso("N");
+            this.ejbFacade.edit(selected);
+            
+            JsfUtil.addSuccessMessage("Prepago desbloqueado");
+            
+            
+        }else{
+                JsfUtil.addErrorMessage("Error","Selecione un prepago");
+        }
+        
+    }
+    
     public void autorizar() throws MessagingException {
                     
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
@@ -902,7 +918,7 @@ public String cartaCompromiso() throws SQLException, NamingException, PrinterExc
  
     public void enviarCorreoAutorizado(GascatUsuario usuario) throws MessagingException{
          
-         String   correo = usuario.getCorreo();
+        String   correo = usuario.getCorreo();
         
         
         if(correo.isEmpty() || correo ==null){

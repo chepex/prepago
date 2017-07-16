@@ -130,7 +130,11 @@ public class LoginBean  implements Serializable {
    
     
     public String  loginIslero() throws IOException   {
-                              
+         
+        
+        System.out.println("vislero-->"+vislero);
+        System.out.println("password-->"+password);
+        System.out.println("gasEstacion-->"+gasEstacion);
         List<GascatUsuario> lusuario = gascatUsuarioFacade.findByLoginEstacionIslero(this.vislero, this.password, this.gasEstacion);
        
         if(lusuario.isEmpty()){

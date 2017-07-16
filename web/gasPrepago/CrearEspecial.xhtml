@@ -14,13 +14,13 @@
             
         <p:dialog id="GasPrepagoCreateEspecialDlg" styleClass="autoWidthDialog"  widgetVar="GasPrepagoCreateEspecialDialog" modal="true"   appendTo="@(body)" header="#{bundle.CreateGasPrepagoTitle}">
             <h:form id="GasPrepagoCreateEspecialForm">                                
-                <p:panel   header="Detalle prepago"   >
+                <p:panel   header="Detalle prepago" toggleable="true"    >
                   
                         <h:panelGroup id="display">
                             <b>Datos Generales </b>
                             <p:panelGrid columns="8" rendered="#{gasPrepagoController.selected != null}">
                                 <p:outputLabel value="Cliente:" for="cliente" />
-                                <p:inputText id ="cliente" value="#{gasPrepagoController.cliente}" />
+                                <p:inputText id ="cliente" disabled="true" value="#{gasPrepagoController.cliente}" />
                                 <p:outputLabel value="Factura:" for="numFactura"  />    
                                 <p:inputText id ="numFactura" value="#{gasPrepagoController.selected.numFactura}" size="20"   required="true"  requiredMessage="DIgite numero de factura"></p:inputText>                    
                                 <p:outputLabel value="Estacion:" for="gasEstacion"  />   
@@ -60,6 +60,8 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Remesa" for="remesa"  />    
                             <p:inputText id ="remesa" value="#{gasPrepagoController.selected.numRemesa}"  />
+                            <p:outputLabel value="Num Cheque" for="numCheque"  />    
+                            <p:inputText id ="numCheque" value="#{gasPrepagoController.selected.numCheque}"  />
                             <p:outputLabel value="Monto" for="valor" />    
                             <p:inputText id ="valor"  value="#{gasPrepagoController.selected.valor}"  />
                         </p:panelGrid>

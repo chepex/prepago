@@ -17,7 +17,9 @@
             <p:submenu id="om_menuoptcolor" label="Prepagos" expanded="true" >
                 <p:menuitem id="om_prepago_creacion" value="Creacion" icon=" fa fa-plus " actionListener="#{gasPrepagoController.redirect('List')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
                 <p:menuitem id="om_prepago_autorizacion" value="Autorizacion" icon=" fa   fa-gavel " actionListener="#{gasPrepagoController.redirect('ListAutorizacion')}"   rendered="#{loginBean.rol eq 'GG'}"   /> 
-                <p:menuitem id="om_prepago_impresion" value="Impresion" icon=" fa  fa-print " actionListener="#{gasPrepagoController.redirect('jreporte2')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
+                
+                <p:menuitem id="om_prepago_impresion2" value="Autoriza Impresion" icon=" fa  fa-print " actionListener="#{gasPrepagoController.redirect('ListImpresion')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
+                
                 <p:menuitem id="om_prepago_bloqueo" value="Desbloquear" icon=" fa  fa-ban " actionListener="#{gasPrepagoController.redirect('Bloqueo')}"   rendered="#{loginBean.rol eq 'ADM'}"   /> 
                 <p:menuitem id="om_prepago_consulta" value="Consulta" icon=" fa fa-reorder  " actionListener="#{gasPrepagoController.redirect('Consulta')}" /> 
                 <p:menuitem id="om_prepago_consulta2" value="ConsultaPista" icon=" fa fa-reorder  " actionListener="#{gasPrepagoController.redirect('ConsultaPista')}" /> 
