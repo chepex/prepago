@@ -16,7 +16,7 @@ import org.primefaces.model.menu.MenuModel;
 
 @Named("gasMenu")
 @SessionScoped
-public class GasMenu implements Serializable {
+public class Menu implements Serializable {
      private MenuModel menus;
      
      public MenuModel generarMenus() {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasModuloEditDlg" widgetVar="GasModuloEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGasModuloTitle}">
+            <h:form id="GasModuloEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasModuloController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGasModuloLabel_codModulo}" for="codModulo" />
+                        <p:inputText id="codModulo" value="#{gasModuloController.selected.codModulo}" title="#{bundle.EditGasModuloTitle_codModulo}" required="true" requiredMessage="#{bundle.EditGasModuloRequiredMessage_codModulo}"/>
+                        <p:outputLabel value="#{bundle.EditGasModuloLabel_nobre}" for="nobre" />
+                        <p:inputText id="nobre" value="#{gasModuloController.selected.nobre}" title="#{bundle.EditGasModuloTitle_nobre}" required="true" requiredMessage="#{bundle.EditGasModuloRequiredMessage_nobre}"/>
+                        <p:outputLabel value="#{bundle.EditGasModuloLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gasModuloController.selected.estado}" title="#{bundle.EditGasModuloTitle_estado}" required="true" requiredMessage="#{bundle.EditGasModuloRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasModuloController.update}" value="#{bundle.Save}" update="display,:GasModuloListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GasModuloEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasModuloEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

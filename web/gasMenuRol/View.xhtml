@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasMenuRolViewDlg" widgetVar="GasMenuRolViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGasMenuRolTitle}">
+            <h:form id="GasMenuRolViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasMenuRolController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGasMenuRolLabel_idGasMenuRol}"/>
+                        <h:outputText value="#{gasMenuRolController.selected.idGasMenuRol}" title="#{bundle.ViewGasMenuRolTitle_idGasMenuRol}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuRolLabel_codMenu}"/>
+                        <h:outputText value="#{gasMenuRolController.selected.codMenu}" title="#{bundle.ViewGasMenuRolTitle_codMenu}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuRolLabel_codRol}"/>
+                        <h:outputText value="#{gasMenuRolController.selected.codRol}" title="#{bundle.ViewGasMenuRolTitle_codRol}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuRolLabel_estado}"/>
+                        <h:outputText value="#{gasMenuRolController.selected.estado}" title="#{bundle.ViewGasMenuRolTitle_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GasMenuRolViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

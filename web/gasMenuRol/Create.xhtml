@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasMenuRolCreateDlg" widgetVar="GasMenuRolCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGasMenuRolTitle}">
+            <h:form id="GasMenuRolCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasMenuRolController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateGasMenuRolLabel_idGasMenuRol}" for="idGasMenuRol" />
+                        <p:inputText id="idGasMenuRol" value="#{gasMenuRolController.selected.idGasMenuRol}" title="#{bundle.CreateGasMenuRolTitle_idGasMenuRol}" required="true" requiredMessage="#{bundle.CreateGasMenuRolRequiredMessage_idGasMenuRol}"/>
+                        <p:outputLabel value="#{bundle.CreateGasMenuRolLabel_codMenu}" for="codMenu" />
+                        <p:inputText id="codMenu" value="#{gasMenuRolController.selected.codMenu}" title="#{bundle.CreateGasMenuRolTitle_codMenu}" required="true" requiredMessage="#{bundle.CreateGasMenuRolRequiredMessage_codMenu}"/>
+                        <p:outputLabel value="#{bundle.CreateGasMenuRolLabel_codRol}" for="codRol" />
+                        <p:inputText id="codRol" value="#{gasMenuRolController.selected.codRol}" title="#{bundle.CreateGasMenuRolTitle_codRol}" required="true" requiredMessage="#{bundle.CreateGasMenuRolRequiredMessage_codRol}"/>
+                        <p:outputLabel value="#{bundle.CreateGasMenuRolLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gasMenuRolController.selected.estado}" title="#{bundle.CreateGasMenuRolTitle_estado}" required="true" requiredMessage="#{bundle.CreateGasMenuRolRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasMenuRolController.create}" value="#{bundle.Save}" update="display,:GasMenuRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'GasMenuRolCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasMenuRolCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

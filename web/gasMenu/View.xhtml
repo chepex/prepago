@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasMenuViewDlg" widgetVar="GasMenuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGasMenuTitle}">
+            <h:form id="GasMenuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasMenuController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGasMenuLabel_codMenu}"/>
+                        <h:outputText value="#{gasMenuController.selected.codMenu}" title="#{bundle.ViewGasMenuTitle_codMenu}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuLabel_codModulo}"/>
+                        <h:outputText value="#{gasMenuController.selected.codModulo}" title="#{bundle.ViewGasMenuTitle_codModulo}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuLabel_nobre}"/>
+                        <h:outputText value="#{gasMenuController.selected.nobre}" title="#{bundle.ViewGasMenuTitle_nobre}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuLabel_url}"/>
+                        <h:outputText value="#{gasMenuController.selected.url}" title="#{bundle.ViewGasMenuTitle_url}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuLabel_principal}"/>
+                        <h:outputText value="#{gasMenuController.selected.principal}" title="#{bundle.ViewGasMenuTitle_principal}"/>
+                        <h:outputText value="#{bundle.ViewGasMenuLabel_estado}"/>
+                        <h:outputText value="#{gasMenuController.selected.estado}" title="#{bundle.ViewGasMenuTitle_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GasMenuViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GasMenuEditDlg" widgetVar="GasMenuEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGasMenuTitle}">
+            <h:form id="GasMenuEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gasMenuController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGasMenuLabel_codMenu}" for="codMenu" />
+                        <p:inputText id="codMenu" value="#{gasMenuController.selected.codMenu}" title="#{bundle.EditGasMenuTitle_codMenu}" required="true" requiredMessage="#{bundle.EditGasMenuRequiredMessage_codMenu}"/>
+                        <p:outputLabel value="#{bundle.EditGasMenuLabel_codModulo}" for="codModulo" />
+                        <p:inputText id="codModulo" value="#{gasMenuController.selected.codModulo}" title="#{bundle.EditGasMenuTitle_codModulo}" required="true" requiredMessage="#{bundle.EditGasMenuRequiredMessage_codModulo}"/>
+                        <p:outputLabel value="#{bundle.EditGasMenuLabel_nobre}" for="nobre" />
+                        <p:inputText id="nobre" value="#{gasMenuController.selected.nobre}" title="#{bundle.EditGasMenuTitle_nobre}" required="true" requiredMessage="#{bundle.EditGasMenuRequiredMessage_nobre}"/>
+                        <p:outputLabel value="#{bundle.EditGasMenuLabel_url}" for="url" />
+                        <p:inputText id="url" value="#{gasMenuController.selected.url}" title="#{bundle.EditGasMenuTitle_url}" required="true" requiredMessage="#{bundle.EditGasMenuRequiredMessage_url}"/>
+                        <p:outputLabel value="#{bundle.EditGasMenuLabel_principal}" for="principal" />
+                        <p:inputText id="principal" value="#{gasMenuController.selected.principal}" title="#{bundle.EditGasMenuTitle_principal}" required="true" requiredMessage="#{bundle.EditGasMenuRequiredMessage_principal}"/>
+                        <p:outputLabel value="#{bundle.EditGasMenuLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gasMenuController.selected.estado}" title="#{bundle.EditGasMenuTitle_estado}" required="true" requiredMessage="#{bundle.EditGasMenuRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gasMenuController.update}" value="#{bundle.Save}" update="display,:GasMenuListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GasMenuEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GasMenuEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
