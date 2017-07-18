@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GascatTipoRolCreateDlg" widgetVar="GascatTipoRolCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGascatTipoRolTitle}">
+            <h:form id="GascatTipoRolCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gascatTipoRolController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_codigoTiporol}" for="codigoTiporol" />
+                        <p:inputText id="codigoTiporol" value="#{gascatTipoRolController.selected.codigoTiporol}" title="#{bundle.CreateGascatTipoRolTitle_codigoTiporol}" required="true" requiredMessage="#{bundle.CreateGascatTipoRolRequiredMessage_codigoTiporol}"/>
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{gascatTipoRolController.selected.descripcion}" title="#{bundle.CreateGascatTipoRolTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateGascatTipoRolRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_validoPista}" for="validoPista" />
+                        <p:inputText id="validoPista" value="#{gascatTipoRolController.selected.validoPista}" title="#{bundle.CreateGascatTipoRolTitle_validoPista}" required="true" requiredMessage="#{bundle.CreateGascatTipoRolRequiredMessage_validoPista}"/>
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_validoTienda}" for="validoTienda" />
+                        <p:inputText id="validoTienda" value="#{gascatTipoRolController.selected.validoTienda}" title="#{bundle.CreateGascatTipoRolTitle_validoTienda}" required="true" requiredMessage="#{bundle.CreateGascatTipoRolRequiredMessage_validoTienda}"/>
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gascatTipoRolController.selected.estado}" title="#{bundle.CreateGascatTipoRolTitle_estado}" />
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_codigoEmpresa}" for="codigoEmpresa" />
+                        <p:inputText id="codigoEmpresa" value="#{gascatTipoRolController.selected.codigoEmpresa}" title="#{bundle.CreateGascatTipoRolTitle_codigoEmpresa}" />
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_codigoEstacion}" for="codigoEstacion" />
+                        <p:inputText id="codigoEstacion" value="#{gascatTipoRolController.selected.codigoEstacion}" title="#{bundle.CreateGascatTipoRolTitle_codigoEstacion}" />
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_estadoSincro}" for="estadoSincro" />
+                        <p:inputText id="estadoSincro" value="#{gascatTipoRolController.selected.estadoSincro}" title="#{bundle.CreateGascatTipoRolTitle_estadoSincro}" />
+                        <p:outputLabel value="#{bundle.CreateGascatTipoRolLabel_fechaSincro}" for="fechaSincro" />
+                        <p:calendar id="fechaSincro" pattern="MM/dd/yyyy HH:mm:ss" value="#{gascatTipoRolController.selected.fechaSincro}" title="#{bundle.EditGascatTipoRolTitle_fechaSincro}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gascatTipoRolController.create}" value="#{bundle.Save}" update="display,:GascatTipoRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'GascatTipoRolCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GascatTipoRolCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

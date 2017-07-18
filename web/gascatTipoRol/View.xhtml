@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GascatTipoRolViewDlg" widgetVar="GascatTipoRolViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGascatTipoRolTitle}">
+            <h:form id="GascatTipoRolViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gascatTipoRolController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_codigoTiporol}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.codigoTiporol}" title="#{bundle.ViewGascatTipoRolTitle_codigoTiporol}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_descripcion}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.descripcion}" title="#{bundle.ViewGascatTipoRolTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_validoPista}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.validoPista}" title="#{bundle.ViewGascatTipoRolTitle_validoPista}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_validoTienda}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.validoTienda}" title="#{bundle.ViewGascatTipoRolTitle_validoTienda}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_estado}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.estado}" title="#{bundle.ViewGascatTipoRolTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_codigoEmpresa}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.codigoEmpresa}" title="#{bundle.ViewGascatTipoRolTitle_codigoEmpresa}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_codigoEstacion}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.codigoEstacion}" title="#{bundle.ViewGascatTipoRolTitle_codigoEstacion}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_estadoSincro}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.estadoSincro}" title="#{bundle.ViewGascatTipoRolTitle_estadoSincro}"/>
+                        <h:outputText value="#{bundle.ViewGascatTipoRolLabel_fechaSincro}"/>
+                        <h:outputText value="#{gascatTipoRolController.selected.fechaSincro}" title="#{bundle.ViewGascatTipoRolTitle_fechaSincro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GascatTipoRolViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
